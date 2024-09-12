@@ -1,0 +1,209 @@
+@charset "UTF-8";
+
+#galleryView {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#galleryView #galleryViewContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    margin-top: 60px;
+}
+
+#galleryView #galleryViewTitleBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+#galleryView #galleryViewTitle {
+    text-align: center;
+    font-size: 38px;
+    font-weight: 600;
+    padding-bottom: 20px;
+}
+
+#galleryView #galleryViewSubTitle {
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 2px;
+    font-weight: 450;
+    padding-bottom: 10px;
+    color: #a7a7a7;
+}
+
+#galleryView #galleryViewMenuBox {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#galleryView #galleryViewMenuBox2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    gap: 20px;
+}
+
+#galleryView .galleryViewMenuEach a{
+    padding: 17px 0px 15px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+/* 맵뷰 검색 이미지 */
+#galleryView #gallerySearchForm {
+	position:relative;
+	display: flex;
+	align-items: center;
+	justify-content:flex-end;
+	    margin-bottom: 50px;
+}
+
+/* 맵뷰 검색 이미지 */
+#galleryView #gallerySearchImage {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top : 20px;
+	right: 25px;
+	cursor: pointer;
+}
+
+#galleryView #gallerySearch {
+	background-color: #f5f5f5;
+    padding: 20px 20px 20px 30px;
+    border: 0px;
+    border-radius: 100px;
+    width: 260px;
+    font-size: 16px;
+}
+
+#galleryView #gallerySearchBtn {
+	display: none;
+}
+
+
+#galleryView .galleryViewListRow {
+    display: flex;
+    flex-direction: column;
+    width: 30%; /* 한 줄에 3개씩 배치되도록 설정 */
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+#galleryView #galleryViewList {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    width: 1000px;
+}
+
+#galleryView .galleryViewImageCell {
+    width: 100%;
+}
+
+#galleryView .galleryViewImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+#galleryView .galleryViewInfoCell {
+    text-align: center;
+    margin-top: 15px;
+}
+
+#galleryView .galleryViewDescription {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#galleryView .galleryViewDate {
+    font-size: 14px;
+    color: #777;
+    margin-top: 5px;
+}
+
+#galleryView #galleryViewButtonBox {
+    display: flex;
+    justify-content: flex-end;
+    margin-top : 25px;
+}
+
+#galleryView .galleryViewWriteButton {
+    margin-left: 25px;
+}
+
+#galleryView .galleryViewWriteButton a {
+    padding: 7px 20px;
+    background-color: #c2c2c2;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 1500px;
+    font-size: 16px;
+}
+
+#galleryView .galleryViewWriteButton a:hover {
+    background-color: #a2a2a2;
+}
+
+#galleryView #galleryViewNumberBox {
+	margin: 0 40px;
+}
+
+#galleryView .galleryViewPagination {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#galleryView .galleryViewPagination a {
+    margin: 0 10px;
+    padding: 5px 12px;
+    color: #000;
+    border-radius: 100%;
+    text-decoration: none;
+}
+
+#galleryView .galleryViewPagination a.active {
+    font-weight: bold;
+    background-color: #c2c2c2;
+    color: #fff;
+}
+
+#galleryView .galleryViewPaginationMove {
+	display:flex;
+	gap:3px;
+	padding:20px 30px;
+	margin: 0px 5px;
+	cursor: pointer;
+}
+
+#galleryView .galleryViewPaginationDoubleLeft{
+		content: "";
+	width: 6px;
+	height: 6px;
+	transform: rotate(-45deg);
+	border-top: 1px solid #333;
+	border-left: 1px solid #333;
+}
+
+#galleryView .galleryViewPaginationDoubleRight {
+	content: "";
+	width: 6px;
+	height: 6px;
+	transform: rotate(135deg);
+	border-top: 1px solid #333;
+	border-left: 1px solid #333;
+}
+

@@ -1,0 +1,280 @@
+@charset "UTF-8";
+
+#galleryContentPage {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#galleryContentPage #galleryContentPageContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 30px;
+	margin-top: 50px;
+}
+
+#galleryContentPage #galleryContentPageTitleBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 75px;
+}
+
+#galleryContentPage #galleryContentPageTitle {
+	text-align: center;
+	font-size: 38px;
+	font-weight: 600;
+	padding-bottom: 20px;
+}
+
+#galleryContentPage #galleryContentPageSubTitle {
+	text-align: center;
+	font-size: 19px;
+	letter-spacing: 2px;
+	font-weight: 450;
+	padding-bottom: 10px;
+	color: #a7a7a7;
+}
+
+#galleryContentPage #galleryContentPageContentBox {
+	display: flex;
+	flex-direction: column;
+}
+
+#galleryContentPage #galleryContentPageButtonBox {
+	display: flex;
+	margin: 40px 13px 0px 0px;
+	justify-content: flex-end;
+}
+
+#galleryContentPage #galleryContentPageModifyButton, #galleryContentPage #galleryContentPageDeleteButton  {
+    margin-left: 30px;
+}
+
+#galleryContentPage #galleryContentPageModifyButton a, #galleryContentPage #galleryContentPageDeleteButton a {
+	border: 1px solid #c2c2c2;
+    padding: 5px 20px;
+    background-color: #c2c2c2;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 1500px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#galleryContentPage #galleryContentPageModifyButton a:hover, #galleryContentPage #galleryContentPageDeleteButton a:hover {
+ 	background-color: #a2a2a2;
+}
+
+#galleryContentPage #galleryContentPageContentInnerBox {
+	display: flex;
+	flex-direction: column;
+}
+
+#galleryContentPage #galleryContentPageContentInfoBox {
+	display: flex;
+	flex-direction: column;
+}
+
+#galleryContentPage #galleryContentPageContentTitleBox {
+	display: flex;
+	align-items: center;
+}
+
+#galleryContentPage #galleryContentPageContentCtg {
+   background-color: #727a8f;
+   padding: 12px 10px;
+   border-radius: 100%;
+   color: white;
+   font-weight: 500;
+   font-size: 20px;
+   max-height: 31px;
+}
+
+#galleryContentPage #galleryContentPageContentTitle {
+	font-size: 35px;
+	font-weight: 600;
+	margin-left: 25px;
+	max-width: 800px;
+}
+
+#galleryContentPage #galleryContentPageSubInfoBox {
+	margin: 20px 0 0 0;
+}
+
+#galleryContentPage .galleryContentPageSubInfo {
+	display: flex;
+	align-items: center;
+	margin: 25px 10px;
+}
+
+#galleryContentPage .galleryContentPageImage {
+	width: 30px;
+	height: 30px;
+	margin-right: 15px;
+}
+
+#galleryContentPage #galleryContentPageBoardText {
+	border: 1px solid #f8f8f8;
+	display: flex;
+	flex-direction:column;
+	cursor: auto;
+	border-radius:12px; 
+	gap: 5px;
+	transition: background-color 0.1s ease-out;
+	padding: 25px 25px 25px 25px;
+	background-color: #f8f8f8;
+	font-weight:500;
+	width: 828px;
+	margin-top: 50px;
+	min-height: 500px;
+	height:auto;
+}
+
+#galleryContentPage #galleryContentPageBoardText2 {
+	border: 1px solid #f8f8f8;
+	display: flex;
+	flex-direction:column;
+	cursor: auto;
+	border-radius:12px; 
+	gap: 5px;
+	transition: background-color 0.1s ease-out;
+	padding: 25px 25px 25px 25px;
+	background-color: #f8f8f8;
+	font-weight:500;
+	width: 828px;
+	margin-top: 50px;
+	min-height: 0px;
+	height:auto;
+}
+
+#galleryContentPage #galleryContentPageCommentAlarm {
+	display: flex;
+	font-size: 20px;
+	font-weight: 600;
+	margin: 100px 0 15px 5px;
+}
+
+#galleryContentPage #galleryContentPageCommentBox {
+	display: flex;
+	flex-direction:column;
+	cursor: auto;
+	border-radius:12px; 
+	transition: background-color 0.1s ease-out;
+	font-weight:500;
+	font-size: 16px;
+	width: 868px;
+}
+
+#galleryContentPage .commentImg {
+	margin: 10px 10px 10px 5px;
+}
+
+#galleryContentPage #galleryContentPageComment {
+	display: flex;
+	flex-direction:column;
+	border: 1px solid #f8f8f8;
+	cursor: auto;
+	border-radius:12px; 
+	gap: 3px;
+	transition: background-color 0.1s ease-out;
+	padding: 15px 20px;
+	background-color: #f8f8f8;
+	font-weight:500;
+	font-size: 16px;
+	width: 828px;
+	resize: none;
+	font-family: "Noto Sans KR", sans-serif;
+	margin-top : 15px;
+}
+
+
+#galleryContentPage #galleryContentPageComment::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#galleryContentPage #galleryContentPageComment::-webkit-scrollbar {
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#galleryContentPage #galleryContentPageComment::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+	background-color: #c4c4c4;
+}
+
+
+#galleryContentPage #addImgBtn {
+	display:none;
+}
+
+#galleryContentPage #galleryContentPageCommentButtonBox {
+	display: flex;
+	margin: 30px 13px 0px 0px;
+	justify-content: flex-end;
+}
+
+#galleryContentPage .galleryContentPageCommentBtn {
+    margin-left: 25px;
+	border: 1px solid #c2c2c2;
+    padding: 5px 20px;
+    background-color: #c2c2c2;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 1500px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#galleryContentPage .galleryContentPageCommentBtn:hover {
+ 	background-color: #a2a2a2;
+}
+
+#galleryContentPage .commentResult {
+    margin-top: 50px;
+    width: 868px;
+}
+
+#galleryContentPage .commentResult ul{
+    padding: 0px;
+}
+
+#galleryContentPage .commentResult li {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: 500;
+    word-break: break-word;
+    margin-top : 20px;
+}
+
+#galleryContentPage .commentNick {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #727a8f;
+}
+
+#galleryContentPage .commentText {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+#galleryContentPage .commentDate {
+    text-align: right;
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+}

@@ -1,0 +1,241 @@
+#insertGalleryPage {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#insertGalleryPage #insertGalleryPageContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 30px;
+	margin-top: 50px;
+}
+
+#insertGalleryPage #insertGalleryPageTitleBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 70px;
+}
+
+#insertGalleryPage #insertGalleryPageTitle {
+	text-align: center;
+	font-size: 38px;
+	font-weight: 600;
+	padding-bottom: 20px;
+}
+
+#insertGalleryPage #insertGalleryPageSubTitle {
+	text-align: center;
+	font-size: 19px;
+	letter-spacing: 2px;
+	font-weight: 450;
+	padding-bottom: 10px;
+	color: #a7a7a7;
+}
+
+#insertGalleryPage .insertGalleryPageInputBox {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 5px;
+}
+
+
+#insertGalleryPage .insertGalleryPageSelect {
+	display : flex;
+	margin-bottom: 20px;
+}
+
+#insertGalleryPage .insertGalleryPageSubSelect {
+	width: 150px;
+	display : none;
+	flex-direction: column;
+	border : 1px solid whitesmoke;
+	border-radius : 8px;
+	position: absolute;
+	margin-top : 65px;
+	margin-right : 65px;
+	padding: 10px;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+	background-color : white;
+	z-index: 1000;
+}
+
+#insertGalleryPage .insertGalleryPageSubSelectEach {
+	display: flex;
+	padding: 10px;
+	border-radius : 10px;
+	font-size: 14px;
+	transition: background-color 0.1s ease-out;
+	color : #1b2631;
+	cursor: pointer;
+}
+
+#insertGalleryPage .insertGalleryPageSelectPlaceholder {
+	position: relative;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	border-radius:1500px; 
+	transition: background-color 0.1s ease-out;
+	padding: 15px 25px 15px 35px;
+	background-color: #f8f8f8;
+	font-size:18px;
+	font-weight:500;
+	width: 120px;
+}
+
+#insertGalleryPage .insertGalleryPageDown {
+	right: 20px;
+	position: absolute;
+	content: "";
+	width: 8px;
+	height: 8px;
+	transform: rotate(-135deg);
+	border-top: 2px solid #333;
+	border-left: 2px solid #333;
+}
+
+#insertGalleryPage #galleryName{
+	flex: 1;
+	margin-left: 30px;
+}
+
+#insertGalleryPage .insertGalleryPageInputBox label {
+	font-size: 18px;
+	font-weight: 500;
+	color: #333;
+	margin-bottom: 15px;
+}
+
+#insertGalleryPage .insertGalleryPageInputBox input {
+	border: 0;
+	border-radius: 1500px;
+	padding: 15px 25px;
+	background-color: #f8f8f8;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+/* 날짜 입력 칸 */
+#insertGalleryPage .shortInput {
+	width: 200px;
+	border: 0;
+	border-radius: 1500px;
+	padding: 15px 25px;
+	background-color: #f8f8f8;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+
+#insertGalleryPage .textAreaBox {
+	margin-top: 50px;
+}
+
+#insertGalleryPage .textAreaBox label {
+	font-size: 18px;
+	font-weight: 500;
+	color: #333;
+	margin-bottom: 15px;
+	display: block;
+}
+
+#insertGalleryPage .textArea {
+	border: 1px solid #f8f8f8;
+	border-radius: 12px;
+	padding: 25px;
+	background-color: #f8f8f8;
+	font-size: 16px;
+	font-weight: 500;
+	min-width: 828px;
+	max-width: 828px;
+	 overflow-y : auto;
+	min-height: 200px;
+}
+
+#insertGalleryPage .textArea::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#insertGalleryPage .textArea::-webkit-scrollbar {
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#insertGalleryPage .textArea::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+	background-color: #c4c4c4;
+}
+
+#insertGalleryPage #galleryMainImageInputBox,
+#insertGalleryPage #galleryDetailImageInputBox {
+	position: relative;
+	border: 1px solid #f8f8f8;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	border-radius: 20px;
+	padding: 25px;
+	background-color: #f8f8f8;
+	margin-top: 50px;
+}
+
+#insertGalleryPage #galleryMainImageInputButton,
+#insertGalleryPage #galleryDetailImageInputButton {
+	position: absolute;
+	right: 50px;
+	border: 1px solid #f8f8f8;
+	border-radius: 20px;
+	padding: 15px 25px;
+	background-color: white;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+#insertGalleryPage #galleryMainImageInputButton:hover,
+#insertGalleryPage #galleryDetailImageInputButton:hover {
+	background-color: #dddddd;
+	color: grey;
+}
+
+#insertGalleryPage #galleryMainImageBox,
+#insertGalleryPage #galleryDetailImageBox {
+	display: flex;
+	margin-top: 15px;
+	gap: 15px;
+	max-width: 600px;
+	flex-wrap: wrap;
+	min-height: 120px;
+}
+
+#insertGalleryPage #fileInputMain,
+#insertGalleryPage #fileInputDetail {
+	display: none;
+}
+
+#insertGalleryPage #insertGalleryPageButtonBox {
+	display: flex;
+	margin: 50px 13px 0 0px;
+	justify-content: flex-end;
+}
+
+#insertGalleryPage #insertGalleryBtn {
+	margin-left: 30px;
+	border: 1px solid #c2c2c2;
+	padding: 5px 20px;
+	background-color: #c2c2c2;
+	color: #fff;
+	border-radius: 1500px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+#insertGalleryPage #insertGalleryBtn:hover {
+	background-color: #a2a2a2;
+}
