@@ -382,7 +382,8 @@ public class MainController {
 	@RequestMapping("/member/imageFileUploadOnly")
 	public void imageFileUploadOnly(@RequestParam("uploadFile") MultipartFile file, HttpSession session)
 			throws IOException {
-		String uploadPath = "C:/springWorkspace/upload/";
+		//String uploadPath = "C:/springWorkspace/upload/";
+		String uploadPath = "/usr/local/project/upload/";
 
 		String originalFileName = file.getOriginalFilename();
 
