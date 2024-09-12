@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <header>
-	<c:if test="${empty sessionScope.sid }">
+	<%-- <c:if test="${empty sessionScope.sid }">
 	<div id="headerTop">
 	    <div id="topContainer">
 	        <div id="topLeftBox" class="noto-sans-kr">
@@ -107,8 +107,8 @@
 			</div>
 	    </div>
 	</div>
-	</c:if>
-	<c:if test="${not empty sessionScope.sid }">
+	</c:if> --%>
+	<%-- <c:if test="${not empty sessionScope.sid }"> --%>
 	<div id="headerTop">
 	    <div id="topContainer">
 	        <div id="topLeftBox" class="noto-sans-kr">
@@ -226,5 +226,5 @@
 			</div>
 	    </div>
 	</div>
-	</c:if>
+	<%-- </c:if> --%>
 </header>
