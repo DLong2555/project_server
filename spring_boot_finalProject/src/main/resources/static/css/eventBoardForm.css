@@ -1,0 +1,209 @@
+@charset "UTF-8";
+
+#eventBoardForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#eventBoardForm #eventBoardFormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    margin-top: 60px;
+}
+
+#eventBoardForm #eventBoardFormTitleBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+#eventBoardForm #eventBoardFormTitle {
+    text-align: center;
+    font-size: 38px;
+    font-weight: 600;
+    padding-bottom: 20px;
+}
+
+#eventBoardForm #eventBoardFormSubTitle {
+    text-align: center;
+    font-size: 19px;
+    letter-spacing: 2px;
+    font-weight: 450;
+    padding-bottom: 10px;
+    color: #a7a7a7;
+}
+
+#eventBoardForm #eventBoardFormMenuBox {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#eventBoardForm #eventBoardFormMenuBox2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    gap: 20px;
+}
+
+#eventBoardForm .eventBoardFormMenuEach a{
+    padding: 17px 0px 15px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+/* 맵뷰 검색 이미지 */
+#eventBoardForm #eventSearchForm {
+	position:relative;
+	display: flex;
+	align-items: center;
+	justify-content:flex-end;
+	    margin-bottom: 50px;
+}
+
+/* 맵뷰 검색 이미지 */
+#eventBoardForm #eventSearchImage {
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top : 20px;
+	right: 25px;
+	cursor: pointer;
+}
+
+#eventBoardForm #eventSearch {
+	background-color: #f5f5f5;
+    padding: 20px 20px 20px 30px;
+    border: 0px;
+    border-radius: 100px;
+    width: 260px;
+    font-size: 16px;
+}
+
+#eventBoardForm #eventSearchBtn {
+	display: none;
+}
+
+
+#eventBoardForm .eventBoardFormListRow {
+    display: flex;
+    flex-direction: column;
+    width: 30%; /* 한 줄에 3개씩 배치되도록 설정 */
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+#eventBoardForm #eventBoardFormList {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    width: 1000px;
+}
+
+#eventBoardForm .eventBoardFormImageCell {
+    width: 100%;
+}
+
+#eventBoardForm .eventBoardFormImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+#eventBoardForm .eventBoardFormInfoCell {
+    text-align: center;
+    margin-top: 15px;
+}
+
+#eventBoardForm .eventBoardFormDescription {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#eventBoardForm .eventBoardFormDate {
+    font-size: 14px;
+    color: #777;
+    margin-top: 5px;
+}
+
+#eventBoardForm #eventBoardFormButtonBox {
+    display: flex;
+    justify-content: flex-end;
+    margin-top : 25px;
+}
+
+#eventBoardForm .eventBoardFormWriteButton {
+    margin-left: 25px;
+}
+
+#eventBoardForm .eventBoardFormWriteButton a {
+    padding: 7px 20px;
+    background-color: #c2c2c2;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 1500px;
+    font-size: 16px;
+}
+
+#eventBoardForm .eventBoardFormWriteButton a:hover {
+    background-color: #a2a2a2;
+}
+
+#eventBoardForm #eventBoardFormNumberBox {
+	margin: 0 40px;
+}
+
+#eventBoardForm .eventBoardFormPagination {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#eventBoardForm .eventBoardFormPagination a {
+    margin: 0 10px;
+    padding: 5px 12px;
+    color: #000;
+    border-radius: 100%;
+    text-decoration: none;
+}
+
+#eventBoardForm .eventBoardFormPagination a.active {
+    font-weight: bold;
+    background-color: #c2c2c2;
+    color: #fff;
+}
+
+#eventBoardForm .eventBoardFormPaginationMove {
+	display:flex;
+	gap:3px;
+	padding:20px 30px;
+	margin: 0px 5px;
+	cursor: pointer;
+}
+
+#eventBoardForm .eventBoardFormPaginationDoubleLeft{
+		content: "";
+	width: 6px;
+	height: 6px;
+	transform: rotate(-45deg);
+	border-top: 1px solid #333;
+	border-left: 1px solid #333;
+}
+
+#eventBoardForm .eventBoardFormPaginationDoubleRight {
+	content: "";
+	width: 6px;
+	height: 6px;
+	transform: rotate(135deg);
+	border-top: 1px solid #333;
+	border-left: 1px solid #333;
+}
+

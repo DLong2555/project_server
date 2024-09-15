@@ -1,0 +1,253 @@
+@charset "UTF-8";
+
+#eventBoardContentPage {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#eventBoardContentPage #eventBoardContentPageContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 30px;
+	margin-top: 60px;
+}
+
+#eventBoardContentPage #eventBoardContentPageTitleBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 75px;
+}
+
+#eventBoardContentPage #eventBoardContentPageTitle {
+	text-align: center;
+	font-size: 38px;
+	font-weight: 600;
+	padding-bottom: 20px;
+}
+
+#eventBoardContentPage #eventBoardContentPageSubTitle {
+	text-align: center;
+	font-size: 19px;
+	letter-spacing: 2px;
+	font-weight: 450;
+	padding-bottom: 10px;
+	color: #a7a7a7;
+}
+
+#eventBoardContentPage #eventBoardContentPageContentBox {
+	display: flex;
+	flex-direction: column;
+}
+
+#eventBoardContentPage #eventBoardContentPageButtonBox {
+	display: flex;
+	margin: 40px 13px 0px 0px;
+	justify-content: flex-end;
+}
+
+#eventBoardContentPage #eventBoardContentPageModifyButton, #eventBoardContentPage #eventBoardContentPageDeleteButton
+{
+    margin-left: 30px;
+}
+
+#eventBoardContentPage #eventBoardContentPageModifyButton a, #eventBoardContentPage #eventBoardContentPageDeleteButton a 
+{
+	border: 1px solid #c2c2c2;
+    padding: 5px 20px;
+    background-color: #c2c2c2;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 1500px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#eventBoardContentPage #eventBoardContentPageModifyButton a:hover, #eventBoardContentPage #eventBoardContentPageDeleteButton a:hover
+{
+ 	background-color: #a2a2a2;
+}
+
+#eventBoardContentPage #eventBoardContentPageContentInnerBox {
+	display: flex;
+	flex-direction: column;
+}
+
+#eventBoardContentPage #eventBoardContentPageContentInfoBox {
+	display: flex;
+	flex-direction: column;
+}
+
+#eventBoardContentPage #eventBoardContentPageContentTitleBox {
+	display: flex;
+	align-items: center;
+}
+
+#eventBoardContentPage #eventBoardContentPageContentCtg {
+   background-color: #727a8f;
+   padding: 12px 10px;
+   border-radius: 100%;
+   color: white;
+   font-weight: 500;
+   font-size: 20px;
+   max-height: 31px;
+}
+
+#eventBoardContentPage #eventBoardContentPageContentTitle {
+	font-size: 35px;
+	font-weight: 600;
+	margin-left: 25px;
+	max-width: 800px;
+}
+
+#eventBoardContentPage #eventBoardContentPageSubInfoBox {
+	margin: 20px 0 0 0;
+}
+
+#eventBoardContentPage .eventBoardContentPageSubInfo {
+	display: flex;
+	align-items: center;
+	margin: 25px 10px;
+}
+
+#eventBoardContentPage .eventBoardContentPageImage {
+	width: 30px;
+	height: 30px;
+	margin-right: 20px;
+}
+
+#eventBoardContentPage #eventBoardContentPageBoardText {
+	border: 1px solid #f8f8f8;
+	display: flex;
+	flex-direction:column;
+	cursor: auto;
+	border-radius:12px; 
+	gap: 5px;
+	transition: background-color 0.1s ease-out;
+	padding: 25px 25px 25px 25px;
+	background-color: #f8f8f8;
+	font-weight:500;
+	width: 828px;
+	margin-top: 50px;
+	min-height: 500px;
+	height:auto;
+}
+
+#eventBoardContentPage #eventBoardContentPageBoardText2 {
+	border: 1px solid #f8f8f8;
+	display: flex;
+	flex-direction:column;
+	cursor: auto;
+	border-radius:12px; 
+	gap: 5px;
+	transition: background-color 0.1s ease-out;
+	padding: 25px 25px 25px 25px;
+	background-color: #f8f8f8;
+	font-weight:500;
+	width: 828px;
+	margin-top: 50px;
+	min-height: 0px;
+	height:auto;
+}
+
+#eventBoardContentPage #eventBoardContentPageEventInfoText {
+	border: 1px solid #f8f8f8;
+	display: flex;
+	flex-direction:column;
+	cursor: auto;
+	border-radius:12px; 
+	gap: 5px;
+	transition: background-color 0.1s ease-out;
+	padding: 25px 25px 25px 25px;
+	background-color: #f8f8f8;
+	font-weight:500;
+	width: 828px;
+	margin-top: 10px;
+	min-height: 0px;
+	height:auto;
+}
+
+#eventBoardContentPage #eventBoardContentPageCommentAlarm {
+	display: flex;
+	font-size: 20px;
+	font-weight: 600;
+	margin: 100px 0 15px 5px;
+}
+
+#eventBoardContentPage #eventBoardContentPageCommentBox {
+	display: flex;
+	flex-direction:column;
+	cursor: auto;
+	border-radius:12px; 
+	transition: background-color 0.1s ease-out;
+	font-weight:500;
+	font-size: 16px;
+	width: 868px;
+}
+
+#eventBoardContentPage #eventBoardContentPageComment {
+	display: flex;
+	flex-direction:column;
+	border: 1px solid #f8f8f8;
+	cursor: auto;
+	border-radius:12px; 
+	gap: 3px;
+	transition: background-color 0.1s ease-out;
+	padding: 15px 20px;
+	background-color: #f8f8f8;
+	font-weight:500;
+	font-size: 16px;
+	width: 828px;
+	resize: none;
+	font-family: "Noto Sans KR", sans-serif;
+	margin-top : 15px;
+}
+
+
+#eventBoardContentPage #eventBoardContentPageComment::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#eventBoardContentPage #eventBoardContentPageComment::-webkit-scrollbar {
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#eventBoardContentPage #eventBoardContentPageComment::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+	background-color: #c4c4c4;
+}
+
+#eventBoardContentPage #eventBoardContentPageEventInfoTitle {
+	font-size:24px;
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+#eventBoardContentPage #eventBoardContentPageCommentButtonBox {
+	display: flex;
+	margin: 30px 13px 0px 0px;
+	justify-content: flex-end;
+}
+
+#eventBoardContentPage #eventBoardContentPagePayButton a{
+    margin-left: 25px;
+	border: 1px solid #d9534f;
+    padding: 5px 20px;
+    background-color: #d9534f;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 1500px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#eventBoardContentPage #eventBoardContentPagePayButton a:hover {
+ 	background-color: #C9302C;
+}
+eventBoardContentPageEventInfoTitle

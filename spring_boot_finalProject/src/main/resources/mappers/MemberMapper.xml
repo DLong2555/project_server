@@ -93,7 +93,7 @@
 	<select id="getMemDateByChildNo" parameterType="String" resultType="com.finalProject.gym.model.ChildVO">
 		SELECT c.*, m.memName, m.memHp, m.memAddress1, m.memAddress2
 		FROM child c
-		JOIN member m ON m.memId = c.memId
+		JOIN member m ON m.memId = c.memId		
 		WHERE c.childNo = #{childNo}
 	</select>
 	
@@ -142,6 +142,13 @@
 		INSERT award (childNo, awardTitle, getAwardDay, ranking)
 		VALUES (#{childNo}, #{awardTitle}, #{getAwardDay}, #{ranking})
 	</insert>
+	
+	<!--수상내역 추가-->
+	<select id="getChildNoJoinEvent" parameterType="int">
+		SELECT childNo
+		FROM order_pay
+		WHERE eventNo = #{eventNo}
+	</select>
   </mapper>
   
   

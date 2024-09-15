@@ -109,12 +109,14 @@ public class ChildController {
 		childService.myPageChildDel(childNo);
 	}
 
+	// 회비 납부
 	@ResponseBody
 	@RequestMapping("/child/childRegistGym")
 	public void childRegistGym(@RequestParam("childNoArr") List<String> childNoArr,
 			@RequestParam("gymNameArr") List<String> gymNameArr, @RequestParam("monArr") List<Integer> monArr,
-			@RequestParam("dateArr") List<String> dateArr, @RequestParam("payOption") String payOption, HttpSession session) {
-		
+			@RequestParam("dateArr") List<String> dateArr, @RequestParam("payOption") String payOption,
+			@RequestParam("ctg") String payCtg, HttpSession session) {
+
 		// 납부 번호 생성
 		int payNo = childService.payNoChk();
 
@@ -125,12 +127,12 @@ public class ChildController {
 		for (int i = 0; i < childNoArr.size(); i++) {
 			ChildVO chvo = childService.getAlreadyRegistGymName(childNoArr.get(i));
 			chvo.setChildNo(childNoArr.get(i));
-			
+
 			// 시작 날짜
 			String day = dateArr.get(i);
 			LocalDate registDay = LocalDate.parse(day, calFm);
-			
-			//납부 정보
+
+			// 납부 정보
 			PayVO payvo = new PayVO();
 			payvo.setPayNo(payNo);
 			payvo.setChildNo(childNoArr.get(i));
@@ -144,37 +146,65 @@ public class ChildController {
 				chvo.setChildBelt("흰띠");
 				chvo.setDeadLine(D_day);
 				chvo.setGymName(gymNameArr.get(i));
-				
+
 				childService.registGymNewChild(chvo);
 			} else if (!chvo.getGymName().equals(gymNameArr.get(i))) {
 				String D_day = registDay.plusMonths(monArr.get(i)).format(fm) + "까지";
 				chvo.setChildBelt(chvo.getChildBelt());
 				chvo.setDeadLine(D_day);
 				chvo.setGymName(gymNameArr.get(i));
-				
+
 				childService.registGymNewChild(chvo);
 
 			} else {
 				String deadLine = chvo.getDeadLine().substring(0, 4) + "-" + chvo.getDeadLine().substring(6, 8) + "-"
 						+ chvo.getDeadLine().substring(10, 12);
 				LocalDate line = LocalDate.parse(deadLine, calFm);
-				
+
 				// 현재가 마감일 보다 후면
 				if (line.isBefore(registDay)) {
 					String D_day = registDay.plusMonths(monArr.get(i)).format(fm) + "까지";
 					chvo.setChildBelt(chvo.getChildBelt());
 					chvo.setDeadLine(D_day);
-				
+
 					childService.registGymNewChild(chvo);
 				} else {
 					String D_day = line.plusMonths(monArr.get(i)).format(fm) + "까지";
 					chvo.setChildBelt(chvo.getChildBelt());
 					chvo.setDeadLine(D_day);
-					
+
 					childService.registGymNewChild(chvo);
 				}
 			}
+
+			childService.insertPayInfo(payvo);
+		}
+	}
+
+	//특수활동 납부
+	@ResponseBody
+	@RequestMapping("/child/childRegistGymEvent")
+	public void childRegistGymEvent(@RequestParam("childNoArr") List<String> childNoArr,
+			@RequestParam("gymNameArr") List<String> gymNameArr, @RequestParam("eventNoArr") List<Integer> eventNoArr,
+			@RequestParam("titleArr") List<String> titleArr, @RequestParam("payOption") String payOption,
+			@RequestParam("ctg") String payCtg, HttpSession session) {
+
+		// 납부 번호 생성
+		int payNo = childService.payNoChk();
+
+		for (int i = 0; i < childNoArr.size(); i++) {			
 			
+			// 납부 정보
+			PayVO payvo = new PayVO();
+			payvo.setPayNo(payNo);
+			payvo.setChildNo(childNoArr.get(i));
+			payvo.setPayCtg(payCtg);
+			payvo.setGymName(gymNameArr.get(i));
+			payvo.setPayOption(payOption);
+			payvo.setEventNo(eventNoArr.get(i));
+
+			
+
 			childService.insertPayInfo(payvo);
 		}
 	}

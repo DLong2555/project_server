@@ -79,12 +79,6 @@ $(document).ready(function() {
         let prdPrice = $('#prdPrice').val();
         let ctg = $('.insertProductPageSelectPlaceholder').text().trim();
         
-      	console.log(main);
-        console.log(detail);
-        console.log(prdName);
-        console.log(prdPrice);
-        console.log(ctg);
-        
         $.ajax({
             type: "post",
             url: "/prd/insertProduct",

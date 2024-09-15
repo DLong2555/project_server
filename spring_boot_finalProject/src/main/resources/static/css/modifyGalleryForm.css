@@ -1,10 +1,10 @@
-#insertGalleryPage {
+#modifyGalleryPage {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-#insertGalleryPage #insertGalleryPageContainer {
+#modifyGalleryPage #modifyGalleryPageContainer {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -12,7 +12,7 @@
 	margin-top: 50px;
 }
 
-#insertGalleryPage #insertGalleryPageTitleBox {
+#modifyGalleryPage #modifyGalleryPageTitleBox {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -20,14 +20,14 @@
 	padding-bottom: 70px;
 }
 
-#insertGalleryPage #insertGalleryPageTitle {
+#modifyGalleryPage #modifyGalleryPageTitle {
 	text-align: center;
 	font-size: 38px;
 	font-weight: 600;
 	padding-bottom: 20px;
 }
 
-#insertGalleryPage #insertGalleryPageSubTitle {
+#modifyGalleryPage #modifyGalleryPageSubTitle {
 	text-align: center;
 	font-size: 19px;
 	letter-spacing: 2px;
@@ -36,19 +36,19 @@
 	color: #a7a7a7;
 }
 
-#insertGalleryPage .insertGalleryPageInputBox {
+#modifyGalleryPage .modifyGalleryPageInputBox {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 5px;
 }
 
 
-#insertGalleryPage .insertGalleryPageSelect {
+#modifyGalleryPage .modifyGalleryPageSelect {
 	display : flex;
 	margin-bottom: 20px;
 }
 
-#insertGalleryPage .insertGalleryPageSubSelect {
+#modifyGalleryPage .modifyGalleryPageSubSelect {
 	width: 150px;
 	display : none;
 	flex-direction: column;
@@ -63,7 +63,7 @@
 	z-index: 1000;
 }
 
-#insertGalleryPage .insertGalleryPageSubSelectEach {
+#modifyGalleryPage .modifyGalleryPageSubSelectEach {
 	display: flex;
 	padding: 10px;
 	border-radius : 10px;
@@ -73,7 +73,7 @@
 	cursor: pointer;
 }
 
-#insertGalleryPage .insertGalleryPageSelectPlaceholder {
+#modifyGalleryPage .modifyGalleryPageSelectPlaceholder {
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -87,7 +87,7 @@
 	width: 120px;
 }
 
-#insertGalleryPage .insertGalleryPageDown {
+#modifyGalleryPage .modifyGalleryPageDown {
 	right: 20px;
 	position: absolute;
 	content: "";
@@ -98,18 +98,18 @@
 	border-left: 2px solid #333;
 }
 
-#insertGalleryPage #galleryName{
+#modifyGalleryPage #galleryName{
 	flex: 1;
 }
 
-#insertGalleryPage .insertGalleryPageInputBox label {
+#modifyGalleryPage .modifyGalleryPageInputBox label {
 	font-size: 18px;
 	font-weight: 500;
 	color: #333;
 	margin-bottom: 15px;
 }
 
-#insertGalleryPage .insertGalleryPageInputBox input {
+#modifyGalleryPage .modifyGalleryPageInputBox input {
 	border: 0;
 	border-radius: 1500px;
 	padding: 15px 25px;
@@ -120,7 +120,7 @@
 }
 
 /* 날짜 입력 칸 */
-#insertGalleryPage .shortInput {
+#modifyGalleryPage .shortInput {
 	width: 200px;
 	border: 0;
 	border-radius: 1500px;
@@ -131,11 +131,11 @@
 }
 
 
-#insertGalleryPage .textAreaBox {
+#modifyGalleryPage .textAreaBox {
 	margin-top: 30px;
 }
 
-#insertGalleryPage .textAreaBox label {
+#modifyGalleryPage .textAreaBox label {
 	font-size: 18px;
 	font-weight: 500;
 	color: #333;
@@ -143,7 +143,7 @@
 	display: block;
 }
 
-#insertGalleryPage .textArea {
+#modifyGalleryPage .textArea {
 	border: 1px solid #f8f8f8;
 	border-radius: 12px;
 	padding: 25px;
@@ -156,25 +156,25 @@
 	min-height: 500px;
 }
 
-#insertGalleryPage .textArea::-webkit-scrollbar-track {
+#modifyGalleryPage .textArea::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
 
-#insertGalleryPage .textArea::-webkit-scrollbar {
+#modifyGalleryPage .textArea::-webkit-scrollbar {
 	width: 12px;
 	background-color: #F5F5F5;
 }
 
-#insertGalleryPage .textArea::-webkit-scrollbar-thumb {
+#modifyGalleryPage .textArea::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
 	background-color: #c4c4c4;
 }
 
 
-#insertGalleryPage #galleryMainImageInputButton {
+#modifyGalleryPage #galleryMainImageInputButton {
 	margin-left: 30px;
 	border: 1px solid #c2c2c2;
 	padding: 5px 20px;
@@ -185,22 +185,22 @@
 	cursor: pointer;
 }
 
-#insertGalleryPage #galleryMainImageInputButton:hover {
+#modifyGalleryPage #galleryMainImageInputButton:hover {
 	background-color: #dddddd;
 	color: grey;
 }
 
-#insertGalleryPage #fileInputMain {
+#modifyGalleryPage #fileInputMain {
 	display: none;
 }
 
-#insertGalleryPage #insertGalleryPageButtonBox {
+#modifyGalleryPage #modifyGalleryPageButtonBox {
 	display: flex;
 	margin: 50px 13px 0 0px;
 	justify-content: flex-end;
 }
 
-#insertGalleryPage #insertGalleryBtn {
+#modifyGalleryPage #modifyGalleryBtn {
 	margin-left: 30px;
 	border: 1px solid #c2c2c2;
 	padding: 5px 20px;
@@ -211,6 +211,6 @@
 	cursor: pointer;
 }
 
-#insertGalleryPage #insertGalleryBtn:hover {
+#modifyGalleryPage #modifyGalleryBtn:hover {
 	background-color: #a2a2a2;
 }

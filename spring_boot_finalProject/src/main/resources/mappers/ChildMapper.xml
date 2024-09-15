@@ -95,16 +95,18 @@
   	
   	<!--납부 정보 등록-->
   	<insert id="insertPayInfo" parameterType="com.finalProject.gym.model.PayVO">
-  		INSERT order_pay (payNo, childNo, payMonth, payCtg, gymName, payOption)
-  		VALUES (#{payNo}, #{childNo}, #{payMonth}, #{payCtg}, #{gymName}, #{payOption})
+  		INSERT order_pay (payNo, childNo, payMonth, payCtg, gymName, payOption, eventNo)
+  		VALUES (#{payNo}, #{childNo}, #{payMonth}, #{payCtg}, #{gymName}, #{payOption}, #{eventNo})
   	</insert>
   	
   	<!--납부 기록 가져오기-->
   	<select id="getPayInfo" parameterType="String" resultType="com.finalProject.gym.model.PayVO">
-  		SELECT p.payNo, p.gymName, p.payCtg, p.payMonth, c.childName, m.gymPrice, p.payDate, p.payOption
+  		SELECT p.payNo, p.gymName, p.payCtg, p.payMonth, c.childName, 
+  		       m.gymPrice, p.payDate, p.payOption, p.eventNo, e.eventPrice, e.eventTitle
   		FROM order_pay p
   		JOIN child c ON c.childNo = p.childNo
   		JOIN member m ON m.gymName = p.gymName 
+  		LEFT JOIN event e ON p.eventNo= e.eventNo
   		WHERE c.memId = #{memId}
   		ORDER BY p.payDate DESC;
   	</select>

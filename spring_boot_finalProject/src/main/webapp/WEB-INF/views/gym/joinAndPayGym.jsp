@@ -19,18 +19,10 @@
 				<div id="payGymTitleBox">
 					<div id="payGymTitle">회비 납부</div>
 				</div>
-				<div id="payGymMenuBox">
-					<div class="payGymMenuEach" >
-						<a href="?ctg=회비">회비</a>
-					</div>
-					<div class="payGymMenuEach">
-						<a href="?ctg=특수">특수활동</a>
-					</div>
-				</div>
 				<div id="payGymContentsBox">
 					<div id="payGymLeftBox">
 						<div id="payGymLeftTitleBox">
-							<div id="payGymLeftTitle">회원 선택</div>
+							<div id="payGymLeftTitle" data-ctg="${ctg }">회원 선택</div>
 						</div>
 						<c:forEach var="child" items="${chvoList }">
 							<div id="payGymUserBox">
@@ -38,14 +30,15 @@
 									<c:if test="${ctg eq '회비' }">						
 									<div class="payGymUserEachInfoBox">
 										<input type="hidden" value="${child.childNo}" class="payChildNo">
-										<div class="payGymUserEachTitle"><input type="checkbox" id="payGymCheckBox" class="payGymCheckBox" name="payGymCheckBox" value="payGymCheckBox" checked>${child.childName}</div>
+											<div class="payGymUserEachTitle">
+												<input type="checkbox" id="payGymCheckBox" class="payGymCheckBox" name="payGymCheckBox" value="payGymCheckBox" checked>${child.childName}
+											</div>
 										<div class="payGymUserEachData">
 											<img src="/image/myPageGym.png" class="payGymImage" onclick="editField('memHp')">
 											<div class="payGymUserEachInfo">
 												<span class="payGymName">${child.gymName}</span>
 											</div>
 											<input type="button" id="payGymSearch" value="체육관 검색" class="payGymBtn" data-value="${child.childNo}">
-
 										</div>
 										<div class="payGymUserEachData">
 											<img src="/image/payGymRegister.png" class="payGymImage" onclick="editField('memHp')">
@@ -99,26 +92,25 @@
 									<c:if test="${ctg eq '특수' }">
 									<div class="payGymUserEachInfoBox">
 										<input type="hidden" value="${child.childNo}" class="payChildNo">
-										<div class="payGymUserEachTitle"><input type="checkbox" id="payGymCheckBox" class="payGymCheckBox" name="payGymCheckBox" value="payGymCheckBox" checked>${child.childName}</div>
+										<div class="payGymUserEachTitle">
+											<input type="checkbox" id="payGymCheckBox" class="payGymCheckBox" name="payGymCheckBox" value="payGymCheckBox" checked>${child.childName}
+										</div>
 										<div class="payGymUserEachData">
 											<img src="/image/event.png" class="payGymImage" onclick="editField('memHp')">
 											<div class="payGymUserEachInfo">
+												<span class="payEventName" data-no="${event.eventNo }">${event.eventTitle}</span>
+											</div>
+										</div>
+										<div class="payGymUserEachData">
+											<img src="/image/myPageGym.png" class="payGymImage" onclick="editField('memHp')">
+											<div class="payGymUserEachInfo">
 												<span class="payGymName">${child.gymName}</span>
 											</div>
-											<input type="button" id="payGymEventSearch" value="특수활동 선택" class="payGymEventSearch" data-value="${child.childNo}">
 										</div>
 										<div class="payGymUserEachData">
 											<img src="/image/payGymMoney.png" class="payGymImage" onclick="editField('memHp')">
 											<div class="payGymUserEachInfo">
-												<c:if test="${child.gymName != '미등록'}">
-													<input type="hidden" class="costPayGymPrice" value="<c:out value="${map[child.gymName]}" />">
-													<span class="payGymPrice"> <c:out value="${map[child.gymName]}" />원
-													</span>
-												</c:if>
-												<c:if test="${child.gymName eq '미등록'}">
-													<input type="hidden" class="costPayGymPrice" value="">
-													<span class="payGymPrice">미등록</span>
-												</c:if>
+												<span class="payGymPrice">${event.eventPrice}</span>																								
 											</div>
 										</div>
 									</div>

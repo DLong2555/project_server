@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.finalProject.gym.dao.IGalleryDAO">
+	<!--특수활동 공고 등록-->
+	<insert id="insertEvent" parameterType="com.finalProject.gym.model.EventVO">
+		INSERT event (eventTitle, eventImg, eventDeadLine, eventTitleContents, eventContents, eventPrice, memId)
+		VALUES (#{eventTitle}, #{eventImg}, #{eventDeadLine}, #{eventTitleContents}, #{eventContents}, #{eventPrice}, #{memId})
+	</insert>
+	
+	<!--특수활동 공고 가져오기 회원-->
+	<select id="getEventContentsWhenMem" resultType="com.finalProject.gym.model.EventVO">
+		SELECT e.*
+		FROM event e
+		JOIN member m ON e.memId = m.memId
+		WHERE m.gymName IN
+		<foreach item="name" collection="gymNameList" open="(" separator="," close=")">
+			#{name}
+		</foreach>
+		ORDER BY eventDate DESC, m.gymName
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<!--총 게시글 가져오기 회원-->
+	<select id="getEventTotalPage" resultType="int">
+		SELECT COUNT(*)
+		FROM event e
+		JOIN member m ON e.memId = m.memId
+		WHERE m.gymName IN
+		<foreach item="name" collection="gymNameList" open="(" separator="," close=")">
+			#{name}
+		</foreach>
+	</select>
+	
+	<!--특수활동 공고 가져오기 관장-->
+	<select id="getEventContentsWhenAdmin" resultType="com.finalProject.gym.model.EventVO">
+		SELECT e.*
+		FROM event e
+		WHERE memId = #{memId}
+		ORDER BY eventDate DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<!--특수활동 공고 게시글 총 개수 가져오기 관장-->
+	<select id="getEventTotalPageWhenAdmin" resultType="int">
+		SELECT COUNT(*)
+		FROM event
+		WHERE memId = #{memId}	
+	</select>
+	
+	<!--공고 상세 보기-->
+	<select id="getEventDetailContent" parameterType="int" resultType="com.finalProject.gym.model.EventVO">
+		SELECT e.*, m.gymName, m.memName
+		FROM event e
+		JOIN member m ON m.memId = e.memId
+		WHERE eventNo = #{eventNo}
+	</select>
+	
+	<!--특수활동 공고 삭제-->
+	<delete id="deleteEventContent" parameterType="int">
+		DELETE 
+		FROM event
+		WHERE eventNo = #{eventNo}
+	</delete>
+	
+	<!--공고 수정-->
+	<update id="updateEventContent" parameterType="com.finalProject.gym.model.EventVO">
+		UPDATE event
+		SET eventTitle = #{eventTitle}, eventDeadLine = #{eventDeadLine},
+		    eventImg = #{eventImg}, eventTitleContents = #{eventTitleContents},
+		    eventContents = #{eventContents}, eventPrice = #{eventPrice}
+		WHERE eventNo = #{eventNo}
+	</update>
+	
+	<!--특수활동 납부 정보 가져오기-->
+	<select id="getEventPayInfo" parameterType="int" resultType="com.finalProject.gym.model.EventVO">
+		SELECT e.eventNo, e.eventTitle, e.eventPrice, m.gymName
+		FROM event e
+		JOIN member m ON m.memId = e.memId
+		WHERE eventNo = #{eventNo}
+	</select>
+	
+	<!--갤러리 글 작성-->
+	<insert id="insertGalleryContents" parameterType="com.finalProject.gym.model.GalleryVO">
+		INSERT gallery (galleryTitle, galleryImg, galleryDate, galleryContents, memId)
+		VALUES (#{galleryTitle}, #{galleryImg}, #{galleryDate}, #{galleryContents}, #{memId})
+	</insert>
+	
+	<!--갤러리 가져오기 회원-->
+	<select id="getGallContentsWhenMem">
+		SELECT g.*
+		FROM gallery g
+		JOIN member m ON m.memId = g.memId
+		WHERE m.gymName IN
+		<foreach item="name" collection="gymNameList" open="(" separator="," close=")">
+			#{name}
+		</foreach>
+		ORDER BY galleryDate DESC, m.gymName
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<!--갤러리 개수 회원-->
+	<select id="getGallTotalPage">
+		SELECT COUNT(*)
+		FROM gallery g
+		JOIN member m ON m.memId = g.memId
+		WHERE m.gymName IN
+		<foreach item="name" collection="gymNameList" open="(" separator="," close=")">
+			#{name}
+		</foreach>
+	</select>
+	
+	<!--갤러리 가져오기 관장-->
+	<select id="getGallContentsWhenAdmin">
+		SELECT *
+		FROM gallery		
+		WHERE memId = #{memId}
+		ORDER BY galleryDate DESC
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
+	<!--갤러리 개수 관장-->
+	<select id="getGallTotalPageWhenAdmin">
+		SELECT COUNT(*)
+		FROM gallery
+		WHERE memId = #{memId}	
+	</select>
+	
+	<!--갤러리 상세 보기-->
+	<select id="getGallDetailContent" parameterType="int" resultType="com.finalProject.gym.model.GalleryVO">
+		SELECT g.*, m.gymName, m.memName
+		FROM gallery g
+		JOIN member m ON m.memId = g.memId
+		WHERE galleryNo = #{galleryNo}
+	</select>
+	
+	<!--갤러리 글 삭제-->
+	<delete id="deleteGallContent" parameterType="int">
+		DELETE 
+		FROM gallery
+		WHERE galleryNo = #{galleryNo}
+	</delete>
+	
+	<!--갤러리 수정-->
+	<update id="updateGallContent" parameterType="com.finalProject.gym.model.EventVO">
+		UPDATE gallery
+		SET galleryTitle = #{galleryTitle}, galleryImg = #{galleryImg},
+		    galleryDate = #{galleryDate}, galleryContents = #{galleryContents}	    
+		WHERE galleryNo = #{galleryNo}
+	</update>
+	
+	<!--특수활동 내용 회원관리로 가져오기-->
+	<select id="getEventDataToManageForm" parameterType="String" resultType="com.finalProject.gym.model.EventVO">
+		SELECT eventNo, eventTitle
+		FROM event
+		WHERE memId = #{memId}
+		ORDER BY eventDeadLine DESC
+	</select>
+</mapper>

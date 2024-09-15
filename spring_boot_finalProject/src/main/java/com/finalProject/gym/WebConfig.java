@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
 		// 프로젝트 외부 경로 이미지 맵핑 설정 
 		// 맵핑 이름 : prd_images
 		registry.addResourceHandler("/prd_images/**")
-		//.addResourceLocations("file:///C:/springWorkspace/product_images/");
-		.addResourceLocations("file:///usr/local/project/product_images/"); // 서버 경로
+		.addResourceLocations("file:///C:/springWorkspace/product_images/");
+		//.addResourceLocations("file:///usr/local/project/product_images/"); // 서버 경로
 	}
 }

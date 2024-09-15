@@ -86,25 +86,42 @@
    testCheckBox(); 
    function testCheckBox(){
       $('.payGymCheckBox').each(function() {
-          var selectedGymNameValue = $(this).closest('.payGymUserEach').find('.payGymName').text(); //체육관 이름
-          var selectedNameValue = $(this).closest('.payGymUserEach').find('.payGymUserEachTitle').text(); //아이 이름
-          var gymPayChildNo =  $(this).closest('.payGymUserEach').find('.payChildNo').val(); // 아이 번호
-          var payGymAddEachId = '#payGymAddEach' + gymPayChildNo; // 아이디 지정
-          var selectedMonthValue = $(this).closest('.payGymUserEach').find('.payGymSelectPlaceholder').attr("data-value") //개월수
+      	  var ctg = $('#payGymLeftTitle').attr("data-ctg");
+      	  if(ctg === '회비'){
+	          var selectedGymNameValue = $(this).closest('.payGymUserEach').find('.payGymName').text(); //체육관 이름
+	          var selectedNameValue = $(this).closest('.payGymUserEach').find('.payGymUserEachTitle').text(); //아이 이름
+	          var gymPayChildNo =  $(this).closest('.payGymUserEach').find('.payChildNo').val(); // 아이 번호
+	          var payGymAddEachId = '#payGymAddEach' + gymPayChildNo; // 아이디 지정
+	          var selectedMonthValue = $(this).closest('.payGymUserEach').find('.payGymSelectPlaceholder').attr("data-value") //개월수
+          }else{
+              var selectedNameValue = $(this).closest('.payGymUserEach').find('.payGymUserEachTitle').text(); //아이 이름
+              var selectedPriceValue = $(this).closest('.payGymUserEach').find('.payGymUserEachInfo .payGymPrice').text(); //아이 이름
+              var gymPayChildNo =  $(this).closest('.payGymUserEach').find('.payChildNo').val(); // 아이 번호   
+              var payGymAddEachId = '#payGymAddEach' + gymPayChildNo; // 아이디 지정
+                     
+          }
           
           if ($(this).is(':checked')) {
               
-              if(selectedGymNameValue != '미등록'){
+              if(selectedGymNameValue != '미등록' && ctg === '회비'){
                  var selectedGymPrice = $(this).closest('.payGymUserEach').find('.costPayGymPrice').val().replace(/,/g,"").replace("원","");
-                let payPrice = formatPrice(parseInt(selectedMonthValue) * parseInt(selectedGymPrice));
+                 let payPrice = formatPrice(parseInt(selectedMonthValue) * parseInt(selectedGymPrice));
                 
                  const eachPayPrice = $("<div>", { id: "payGymAddEach" + gymPayChildNo, class:"payGymAddEach" });
-               eachPayPrice.html(`
-                   <div id="payGymAddName">${selectedNameValue} - ${selectedMonthValue}개월</div>
-                   <div id="payGymAddPrice" class="eachPrice">${payPrice}</div>
-               `);
+                 eachPayPrice.html(`
+                    <div id="payGymAddName">${selectedNameValue} - ${selectedMonthValue}개월</div>
+                    <div id="payGymAddPrice" class="eachPrice">${payPrice}</div>
+               ` );
                
-               $('#payGymAddBox').append(eachPayPrice);
+                 $('#payGymAddBox').append(eachPayPrice);
+              }else if(ctg === '특수'){
+              	 const eachPayPrice = $("<div>", { id: "payGymAddEach" + gymPayChildNo, class:"payGymAddEach" });
+                 eachPayPrice.html(`
+                    <div id="payGymAddName">${selectedNameValue}
+                    <div id="payGymAddPrice" class="eachPrice">${selectedPriceValue}</div>
+               ` );
+               
+                 $('#payGymAddBox').append(eachPayPrice);
               }
               
               getTotalPay();
@@ -207,33 +224,71 @@
        let gymNameArr = [];
        let monArr = [];
        let dateArr = [];
-       let option = $('#payGymEventPlaceholder').attr("data-value");
+       let option = $('#payGymEventPlaceholder').attr("data-value");       
+       let ctg = $('#payGymLeftTitle').attr("data-ctg");
        
-       $('.payGymUserEach').each(function(){
-           let ch = $(this);
-           let no = ch.find('.payChildNo').val();
-           let gym = ch.find('.payGymName').text();
-           let month = parseInt(ch.find('.payGymSelectPlaceholder').attr("data-value"));
-           let date = ch.find('.registDate').val();
-           let chk = ch.find('.payGymCheckBox').is(':checked');
-           
-           if(chk && gym != '미등록'){
-               childNoArr.push(no);
-               gymNameArr.push(gym);
-               monArr.push(month); 
-               dateArr.push(date);
-           }
-       });
-       
-       $.ajax({
-           type: "post",
-           url: "/child/childRegistGym",
-            traditional: true,
-           data: {"childNoArr": childNoArr, "gymNameArr": gymNameArr, "monArr": monArr, "dateArr":dateArr, "payOption":option},
-           success: function(){
-              location.href = "/member/myPageChildInfo";
-           }
-      });
+       if(ctg === '회비'){       
+	       $('.payGymUserEach').each(function(){
+	           let ch = $(this);
+	           let no = ch.find('.payChildNo').val();
+	           let gym = ch.find('.payGymName').text();
+	           let month = parseInt(ch.find('.payGymSelectPlaceholder').attr("data-value"));
+	           let date = ch.find('.registDate').val();
+	           let chk = ch.find('.payGymCheckBox').is(':checked');
+	           let ctg = $('#payGymLeftTitle').attr("data-ctg");         
+	           
+	           if(chk && gym != '미등록'){
+	               childNoArr.push(no);
+	               gymNameArr.push(gym);
+	               monArr.push(month); 
+	               dateArr.push(date);
+	           }
+	       });
+	       
+	       $.ajax({
+	           type: "post",
+	           url: "/child/childRegistGym",
+	            traditional: true,
+	           data: {"childNoArr": childNoArr, "gymNameArr": gymNameArr, "monArr": monArr, "dateArr":dateArr, "payOption":option, "ctg":ctg},
+	           success: function(){
+	              location.href = "/member/myPageChildInfo";
+	           }
+	       });
+       }else{
+       		let titleArr = [];
+       		let eventNoArr = [];
+       		
+       		
+       		$('.payGymUserEach').each(function(){
+       			let eventTitle = $(this).find('.payEventName').text();
+       			let eventNo = parseInt($(this).find('.payEventName').attr("data-no"));
+       			let gym = $(this).find('.payGymName').text();
+	            let no = $(this).find('.payChildNo').val();	                      
+	            let chk = $(this).find('.payGymCheckBox').is(':checked');      
+	           
+	            if(chk){
+	                childNoArr.push(no);
+	                gymNameArr.push(gym);
+	                titleArr.push(eventTitle);
+	                eventNoArr.push(eventNo);	              
+	            }
+	       });
+	       
+	       console.log(childNoArr);
+	       console.log(gymNameArr);
+	       console.log(titleArr);
+	       console.log(eventNoArr);
+	       
+	       $.ajax({
+	           type: "post",
+	           url: "/child/childRegistGymEvent",
+	            traditional: true,
+	           data: {"childNoArr": childNoArr, "gymNameArr": gymNameArr, "titleArr": titleArr, "eventNoArr":eventNoArr, "payOption":option, "ctg":ctg},
+	           success: function(){
+	              location.href = "/prd/orderHistoryForm?ctg=납부";
+	           }
+	       });
+       }
    });
    
     // URL의 쿼리 파라미터에서 'ctg' 값 가져오기
@@ -270,21 +325,17 @@
             "text-decoration-thickness": "3px"
         });
     } 
-
-    $(document).on('click', '.payGymEventSearch', function(){
-       var newWindow = window.open('/board?ctg=특수', '_blank', 'width=' + screen.width + ',height=' + screen.height + ',left=0,top=0');
-    });
     
-       $(".payGymEventSelectPlaceholder").on('click', function() {
-        var currentDisplay = $(this).siblings(".payGymEventSubSelect").css("display");
-
-        if (currentDisplay === "none" || currentDisplay === "") {
-            $(this).siblings(".payGymEventSubSelect").css("display", "flex");
-        } else {
-            $(this).siblings(".payGymEventSubSelect").css("display", "none");
-        }
-      
-    });
+    $(".payGymEventSelectPlaceholder").on('click', function() {
+	   var currentDisplay = $(this).siblings(".payGymEventSubSelect").css("display");
+	
+	   if (currentDisplay === "none" || currentDisplay === "") {
+	        $(this).siblings(".payGymEventSubSelect").css("display", "flex");
+	   } else {
+	        $(this).siblings(".payGymEventSubSelect").css("display", "none");
+	   }
+	      
+	});   
 
     // payGymEventSubSelectEach 클릭 시 Placeholder 값 변경
     $(".payGymEventSubSelectEach").on('click', function() {

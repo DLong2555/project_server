@@ -31,6 +31,12 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value='/css/insertGalleryForm.css'/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/css/galleryContentPage.css'/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/css/gallery.css'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/css/eventBoardForm.css'/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/eventBoardContentPage.css'/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/insertEventForm.css'/>">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/css/memberAwardForm.css'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/css/modifyGalleryForm.css'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/css/memberAwardForm.css'/>">
 	
 	<script src="<c:url value='/js/jquery-3.7.1.min.js'/>"></script>
 	<script src="<c:url value='/js/layoutTop.js'/>"></script>

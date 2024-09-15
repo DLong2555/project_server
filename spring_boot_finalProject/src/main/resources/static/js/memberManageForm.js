@@ -72,7 +72,7 @@ $(document).ready(function () {
        });
     }
     
-    if(pageCtg === '회원 정보'){
+    if(pageCtg === '회원 정보' || pageCtg === '납부관리'){
        //로드시 첫번째 정보 띄우기
        loadFirstChildInfo();
        
@@ -115,6 +115,43 @@ $(document).ready(function () {
           }
        });
     }
+    
+    //납부관리
+    if(pageCtg === '납부관리'){
+    	let eventNo = $('.memberManageSelectPlaceholder').attr("data-value");   	    	
+        
+        getPayChildInfo(eventNo);
+        
+    	$(document).on('click', '.memberManageNameEach',function() {
+            let childNo = $(this).find('span').attr("data-value");
+            executeAjax(childNo);
+        });
+    }
+    
+    //납부관리 아이 정보 함수
+    function getPayChildInfo(eventNo) {      
+       let nameClass = $('.memberManageNameEach');
+       console.log(eventNo);
+       
+       $('.memberManageNameEach').each(function(){
+           $(this).css("color", "red");            
+       });
+       
+       $.ajax({
+          type:"post",
+          url:"/member/getChildNoJoinEvent",
+          data:{"eventNo":eventNo},
+          success:function(result){
+          	 $.each(result,function(index, childNo){          
+	             nameClass.each(function(){
+	             	let no = $(this).find('span').attr("data-value");	
+	             	if(childNo == no) $(this).css("color", "#21b605");          	
+	             });                 
+             });         
+          }
+       });
+    }
+    
     
     //회원 검색
    $('#memberManageNameSearch').on('keyup', function(e){
@@ -196,6 +233,15 @@ $(document).ready(function () {
             "text-underline-offset": "15px",
             "text-decoration-thickness": "2px"
         });
+    } else if (ctg === '납부관리') {
+        $('a[href="?ctg=납부관리"]').parent().css({
+            "font-weight": "600",
+            "font-size": "21px",
+            "text-decoration": "underline",
+            "text-underline-offset": "15px",
+            "text-decoration-thickness": "2px"
+        });
+        $('.memberManageSelectPlaceholder').css("display", "flex");
     }
    
       $('#memberManageModifyBtn').click(function(event) {
@@ -259,21 +305,21 @@ $(document).ready(function () {
     }
     
     function displayArrow(page){
-    	if(totalPage == 0){
-    		$('#memberManageRightArrow').css("visibility", "hidden");
+       if(totalPage == 0){
+          $('#memberManageRightArrow').css("visibility", "hidden");
             $('#memberManageLeftArrow').css("visibility", "hidden");
-    	}else{
-    		if(page == 0){
-    			$('#memberManageRightArrow').css("visibility", "visible");
-            	$('#memberManageLeftArrow').css("visibility", "hidden");
-    		}else if(page == totalPage){
-    			$('#memberManageRightArrow').css("visibility", "hidden");
-            	$('#memberManageLeftArrow').css("visibility", "visible");
-    		}else{
-    			$('#memberManageRightArrow').css("visibility", "visible");
-            	$('#memberManageLeftArrow').css("visibility", "visible");
-    		}
-    	}
+       }else{
+          if(page == 0){
+             $('#memberManageRightArrow').css("visibility", "visible");
+               $('#memberManageLeftArrow').css("visibility", "hidden");
+          }else if(page == totalPage){
+             $('#memberManageRightArrow').css("visibility", "hidden");
+               $('#memberManageLeftArrow').css("visibility", "visible");
+          }else{
+             $('#memberManageRightArrow').css("visibility", "visible");
+               $('#memberManageLeftArrow').css("visibility", "visible");
+          }
+       }
     }
     
     var awardNo = 0;
@@ -315,10 +361,10 @@ $(document).ready(function () {
             page = totalPage;
          }
          
-	     loadAwardContents(getChildNo, page);
-	      
-	     $(this).attr("data-num", page);
-	     $('#memberManageLeftArrow').attr("data-num", page);
+        loadAwardContents(getChildNo, page);
+         
+        $(this).attr("data-num", page);
+        $('#memberManageLeftArrow').attr("data-num", page);
    });
    
    $('#memberManageLeftArrow').on('click',function(){
@@ -328,82 +374,82 @@ $(document).ready(function () {
             page = 0;
          }
          
-	     loadAwardContents(getChildNo, page);
-	      
-	     $(this).attr("data-num", page);
-	     $('#memberManageRightArrow').attr("data-num", page);
+        loadAwardContents(getChildNo, page);
+         
+        $(this).attr("data-num", page);
+        $('#memberManageRightArrow').attr("data-num", page);
    });
    
     
     var btnFlag = false;
     var savePage = 0;
     function addCompetition(){
-    	  $('#memberManageCompetitionInfo input[type=text]').val('');
-    	  //화살표 숨김
-    	  $('#memberManageRightArrow').css("visibility", "hidden");
+         $('#memberManageCompetitionInfo input[type=text]').val('');
+         //화살표 숨김
+         $('#memberManageRightArrow').css("visibility", "hidden");
           $('#memberManageLeftArrow').css("visibility", "hidden");
-    	  savePage = $('#memberManageRightArrow').attr("data-num");
-    	  
-    	  $('#memberManageCompetitionInfo input[type=text]')
-	            .prop('readonly', false).css({
-	            'color': '#a8a8a8',
-	            'border-bottom': '1px solid #e8e8e8',
-	            'cursor': 'auto'
-	      });
-	
-	
-	      $('#memberManageCompetitionContentsBox').css('display', 'flex');
-	      $('#memberManageCompetitionNullBox').css('display', 'none');
-          $('#addCompetitionSuccessBtn').css('display', 'flex');
-          $('#addCompetitionBtn').hide();
-          $('#addCompetitionCancleBtn').css('display', 'flex');
-          $('#deleteCompetitionBtn').hide();
-          btnFlag = true;
+         savePage = $('#memberManageRightArrow').attr("data-num");
+         
+         $('#memberManageCompetitionInfo input[type=text]')
+               .prop('readonly', false).css({
+               'color': '#a8a8a8',
+               'border-bottom': '1px solid #e8e8e8',
+               'cursor': 'auto'
+         });
+   
+   
+         $('#memberManageCompetitionContentsBox').css('display', 'flex');
+         $('#memberManageCompetitionNullBox').css('display', 'none');
+         $('#addCompetitionSuccessBtn').css('display', 'flex');
+         $('#addCompetitionBtn').hide();
+         $('#addCompetitionCancleBtn').css('display', 'flex');
+         $('#deleteCompetitionBtn').hide();
+         btnFlag = true;
     }
     
     function addCompetitionSuccessBtn(){
-    	$('#memberManageCompetitionInfo input[type=text]')
-				.prop('readonly', true).css({
-				'color': 'black',
-				'border-bottom': '0',
-				'cursor': 'auto'
-		});
-					
-		$('#addCompetitionBtn').css('display', 'flex');
-		$('#addCompetitionSuccessBtn').hide();
-		$('#deleteCompetitionBtn').css('display', 'flex');
+       $('#memberManageCompetitionInfo input[type=text]')
+            .prop('readonly', true).css({
+            'color': 'black',
+            'border-bottom': '0',
+            'cursor': 'auto'
+      });
+               
+      $('#addCompetitionBtn').css('display', 'flex');
+      $('#addCompetitionSuccessBtn').hide();
+      $('#deleteCompetitionBtn').css('display', 'flex');
         $('#addCompetitionCancleBtn').hide();
     }
     
     function addCompetitionSuccess(){
-    	
-	     //db에 추가
-	     let title = $('#memberManageCompetitionText').val();
-	     let date = $('#memberManageCompetitionDateText').val();
-	     let ranking = $('#memberManageCompetitionTrophyText').val();
-	     let childNo = getChildNo;
-	     let datePattern = /^[0-9]{8}$/;	     
-	     
-	     if(btnFlag){
-		     if(datePattern.test(date)){
-		     	date = date.substring(0,4) + "-" + date.substring(4,6) + "-" + date.substring(6,8);
-		     	
-			    $.ajax({
-			     	type:"post",
-			     	url:"/member/addAwardContents",
-			     	data:{"childNo":childNo,"awardTitle":title, "dateFmt":date, "ranking":ranking},
-			     	success:function(){
-			     		addCompetitionSuccessBtn();
-			     		loadAwardContents(getChildNo, 0);
-			     		$('#memberManageRightArrow').attr("data-num",0);
-              			$('#memberManageLeftArrow').attr("data-num",0);
-			     	}
-			    });
-			    console.log(date);
-		     }else{
-		     	alert('숫자 8자리 입력해 주세요. ex) 20240910');
-		     }
-	     }
+       
+        //db에 추가
+        let title = $('#memberManageCompetitionText').val();
+        let date = $('#memberManageCompetitionDateText').val();
+        let ranking = $('#memberManageCompetitionTrophyText').val();
+        let childNo = getChildNo;
+        let datePattern = /^[0-9]{8}$/;        
+        
+        if(btnFlag){
+           if(datePattern.test(date)){
+              date = date.substring(0,4) + "-" + date.substring(4,6) + "-" + date.substring(6,8);
+              
+             $.ajax({
+                 type:"post",
+                 url:"/member/addAwardContents",
+                 data:{"childNo":childNo,"awardTitle":title, "dateFmt":date, "ranking":ranking},
+                 success:function(){
+                    addCompetitionSuccessBtn();
+                    loadAwardContents(getChildNo, 0);
+                    $('#memberManageRightArrow').attr("data-num",0);
+                       $('#memberManageLeftArrow').attr("data-num",0);
+                 }
+             });
+             console.log(date);
+           }else{
+              alert('숫자 8자리 입력해 주세요. ex) 20240910');
+           }
+        }
     }
     
     $('#addCompetitionBtn').click(function(event) {
@@ -415,24 +461,24 @@ $(document).ready(function () {
     });
     
     $('#addCompetitionCancleBtn').on('click',function(){
-    	 loadAwardContents(getChildNo, savePage);
-    	 displayArrow(savePage);	 
-    	 addCompetitionSuccessBtn();
+        loadAwardContents(getChildNo, savePage);
+        displayArrow(savePage);    
+        addCompetitionSuccessBtn();
     });
     
      $('#deleteCompetitionBtn').on('click', function(){
          let page = $('#memberManageRightArrow').attr("data-num");
          
          if(page - 1 <= 0){
-         	page = 0;
-         	$('#memberManageRightArrow').attr("data-num",page);
-         	$('#memberManageLeftArrow').attr("data-num",page);
+            page = 0;
+            $('#memberManageRightArrow').attr("data-num",page);
+            $('#memberManageLeftArrow').attr("data-num",page);
          }else{
-         	page--;
-         	$('#memberManageRightArrow').attr("data-num",page);
-         	$('#memberManageLeftArrow').attr("data-num",page);
+            page--;
+            $('#memberManageRightArrow').attr("data-num",page);
+            $('#memberManageLeftArrow').attr("data-num",page);
          }
-			         
+                  
          if(confirm('삭제하시겠습니까?')){
             $.ajax({
                type:"post",
@@ -445,4 +491,65 @@ $(document).ready(function () {
          }
    });
    
+   
+   $(".memberManageSelectPlaceholder").on('click', function() {
+		var currentDisplay = $(this).siblings(".memberManageSubSelect").css("display");
+		
+		if (currentDisplay === "none" || currentDisplay === "") {
+		       $(this).siblings(".memberManageSubSelect").css("display", "flex");
+		} else {
+		       $(this).siblings(".memberManageSubSelect").css("display", "none");
+		}
+		      
+	});
+
+    // memberManageSubSelectEach 클릭 시 Placeholder 값 변경
+    $(".memberManageSubSelectEach").on('click', function() {
+        var selectedValue = $(this).text();  // 선택된 텍스트를 가져옴
+        var selectedNo = $(this).attr("data-value");
+        var placeholder = $(this).closest(".memberManageSelect").find(".memberManageSelectPlaceholder");  // Placeholder를 찾음
+        var selectedCtgValue = $(this).closest(".memberManageSelect").find(".memberManageSubSelectEach");
+        placeholder.html(selectedValue + ' <div class="memberManageDown"></div>');  // Placeholder 값을 업데이트하고 memberManageDown div를 유지
+        placeholder.attr("data-value", selectedNo);
+        $(this).parent().css("display", "none");  // 드롭다운을 숨김
+        
+        //참가 이벤트 변경
+        getPayChildInfo(selectedNo);
+    });
+
+    
+    // 클릭 외부 클릭 시 숨기기
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest(".memberManageSelectPlaceholder, .memberManageSubSelect").length) {
+            $(".memberManageSubSelect").css("display", "none");
+        }
+    });
+    
+    $(".memberManageSelectPlaceholder, .memberManageSubSelectEach").on('mouseenter', function() {
+            $(this).css({
+                "background-color": "#dddddd",
+                "color": "gray"
+            });
+        })
+        .on('mouseleave', function(){
+            $(this).css({
+                "background-color": "#f5f5f5",
+                "color": "#424949"
+            });
+        }
+    );
+    
+        $(".memberManageSubSelectEach").on('mouseenter', function() {
+            $(this).css({
+                "background-color": "#f3f3f3",
+                "color": "gray"
+            });
+        })
+        .on('mouseleave', function(){
+            $(this).css({
+                "background-color": "white",
+                "color": "#424949"
+            });
+        }
+    );
 });

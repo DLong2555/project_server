@@ -1,10 +1,33 @@
 /**
  * 
  */
- $(document).ready(function() {
-    var mainImage = '';    
-    
-    $('#fileInputMain').on('change', function() {
+ 
+ $(document).ready(function(){
+ 	var mainImage = '';  
+ 	
+ 	$('#modifyGalleryBtn').on('click', function(){
+ 		let firstImg = $('#galleryMain img:first').data('filename');
+ 		let galleryName = $('#galleryName').val();
+ 		let registDate = $('#galleryDate').val();
+ 		let galleryContents = $('#galleryMain').html();
+ 		let galleryNo = $('.modifyGalleryPageInputBox').attr("data-no");
+ 		
+ 		console.log(firstImg);
+ 		console.log(galleryName);
+ 		console.log(registDate);
+ 		console.log(galleryContents);
+ 		
+ 		$.ajax({
+    		type:"post",
+    		url:"/gallery/updateGallery",
+    		data:{"galleryTitle":galleryName, "galleryImg":firstImg, "registDate":registDate, "galleryContents":galleryContents, "galleryNo":galleryNo},
+    		success:function(){
+    			location.href = "/gallery/galleryContentPage?galleryNo=" + galleryNo;
+    		}
+    	});
+ 	});
+ 	
+ 	$('#fileInputMain').on('change', function() {
 	        // 파일 입력 필드에서 선택된 파일들
 	        var files = $(this)[0].files;
 	        
@@ -37,34 +60,8 @@
             });
 	       
 	});
-	    
-    $('#galleryDetailImageInputButton').on('click', function() {
-        $('#fileInputDetail').click();
-    });
-
-    $('#galleryMainImageInputButton').on('click', function() {
+	
+	$('#galleryMainImageInputButton').on('click', function() {
         $('#fileInputMain').click();
-    });    
-    
-    $('#insertGalleryBtn').on('click',function(){
-    	let title = $('#galleryName').val();
-    	let date = $('#galleryDate').val();
-    	let contents = $('#galleryMain').html();
-    	
-    	console.log(title);
-    	console.log(date);
-    	console.log(contents);
-    	console.log(mainImage);
-    	
-    	$.ajax({
-    		type:"post",
-    		url:"/gallery/insertGallery",
-    		data:{"galleryTitle":title, "galleryImg":mainImage, "registDate":date, "galleryContents":contents},
-    		success:function(){
-    			location.href = "/gallery/gallery";
-    		}
-    	});
-    });
-    
-});
- 
+    });  
+ });

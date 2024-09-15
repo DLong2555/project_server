@@ -27,4 +27,5 @@ public interface IMemberService {
 	public int totalAwardPage(String childNo); //수상내역 개수 가져오기
 	public void deletAward(int awardNo); // 수상내역 삭제
 	public void addAwardContents(AwardVO awardvo); //수상내역 추가
+	public ArrayList<Integer> getChildNoJoinEvent(int eventNo); //이벤트 참여 아이 번호 가져오기
 }

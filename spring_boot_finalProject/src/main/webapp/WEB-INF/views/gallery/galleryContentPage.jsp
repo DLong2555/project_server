@@ -24,51 +24,43 @@
 					<div id="galleryContentPageContentInnerBox">
 						<div id="galleryContentPageContentInfoBox">
 							<div id="galleryContentPageContentTitleBox">
-								<div id="galleryContentPageContentCtg">단체</div>
-								<div id="galleryContentPageContentTitle">여름 휴가 사진</div>
+								<div id="galleryContentPageContentCtg">전체</div>
+								<div id="galleryContentPageContentTitle" data-no="${gall.galleryNo }">${gall.galleryTitle }</div>
 							</div>
 
 							<div id="galleryContentPageSubInfoBox">
 								<div id="galleryContentPageUploader" class="galleryContentPageSubInfo">
 									<img id="galleryManager" class="galleryContentPageImage" src="<c:url value='/image/mapManager.png' />">
-									관리자
+									${gall.memName }
 								</div>
 								<div id="galleryContentPageTime" class="galleryContentPageSubInfo">
 									<img id="galleryTime" class="galleryContentPageImage" src="<c:url value='/image/boardTime.png' />">
-									2024년 9월 9일(월) 17시 16분 15초
-								</div>
-								<div id="galleryContentPageView" class="galleryContentPageSubInfo">
-									<img id="galleryView" class="galleryContentPageImage" src="<c:url value='/image/boardView.png' />">
-									1234
-								</div>
+									${gall.registDate }
+								</div>								
 								<div id="galleryContentPageView" class="galleryContentPageSubInfo">
 									<img id="galleryGym" class="galleryContentPageImage" src="<c:url value='/image/myPageGym.png' />">
-									참 좋은 인성 합기도
+									${gall.gymName }
 								</div>
 							</div>
 						</div>
 
 						<div class="textAreaBox">
 							<div id="galleryContentPageBoardText" class="textArea">
-								<img src="/image/mainPageGallery1.jpg" alt="gallery image" id="galleryMainImage">
-							</div>
-						</div>
-
-						<div class="textAreaBox">
-							<div id="galleryContentPageBoardText2" class="textArea">
-								<div id="galleryContentPageDescription">이것은 2024년 체육관에서 찍은 사진입니다.</div>
+								${gall.galleryContents }
 							</div>
 						</div>
 						
-						<div id="galleryContentPageButtonBox">
-							<div id="galleryContentPageModifyButton">
-								<a href="#">수정하기</a> 
+						<c:if test="${not empty sessionScope.sidGymNo }">
+							<div id="galleryContentPageButtonBox">
+								<div id="galleryContentPageModifyButton">
+									<a href="/gallery/updateGallContentForm?galleryNo=${gall.galleryNo }">수정하기</a> 
+								</div>
+								<div id="galleryContentPageDeleteButton">
+									<a href="#">삭제하기</a> 
+								</div>
 							</div>
-							<div id="galleryContentPageDeleteButton">
-								<a href="#">삭제하기</a> 
-							</div>
-						</div>
-
+						</c:if>
+						
 						<div id="galleryContentPageCommentAlarm">
 							<img id="commentIcon" class="galleryContentPageImage" src="<c:url value='/image/comment.png' />"> 댓글
 						</div>
@@ -85,19 +77,7 @@
 							<input type="button" class="galleryContentPageCommentBtn" id="addCommentBtn" value="작성하기">
 						</div>
 
-						<div class="commentResult">
-							<ul>
-								<li>
-									<div class="commentNick">User1</div> 
-									<div class="commentText">정말 멋진 사진이에요!</div> 
-									<div class="commentDate">2024-09-09</div> 
-								</li>
-								<li>
-									<div class="commentNick">User2</div> 
-									<div class="commentText">다음에 저도 가보고 싶네요.</div>
-									<div class="commentDate">2024-09-08</div> 
-								</li>
-							</ul>
+						<div class="commentResult">							
 						</div>
 					</div>
 				</div>

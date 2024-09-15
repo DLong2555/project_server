@@ -18,6 +18,8 @@ public class ChildVO {
 	private String memAddress1;
 	private String memAddress2;
 	
+	private boolean eventChk = false;
+	
 	public String getChildNo() {
 		return childNo;
 	}
@@ -103,6 +105,12 @@ public class ChildVO {
 	}
 	public void setMemAddress2(String memAddress2) {
 		this.memAddress2 = memAddress2;
+	}
+	public boolean isEventChk() {
+		return eventChk;
+	}
+	public void setEventChk(boolean eventChk) {
+		this.eventChk = eventChk;
 	}
 	
 }

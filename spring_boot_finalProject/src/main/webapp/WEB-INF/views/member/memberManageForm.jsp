@@ -14,32 +14,49 @@
 	<div id="memberManageForm">
 		<div id="memberManageContainer" class="noto-sans-kr">
 			<div id="memberManageMenuBox">
-				<div class="memberManageMenuEach">
-					<a href="?ctg=회원정보">회원정보</a>
+				<div id="memberManageMenuBox2">
+					<div class="memberManageMenuEach">
+						<a href="?ctg=회원정보">회원정보</a>
+					</div>
+					<div class="memberManageMenuEach">
+						<a href="?ctg=수상내역">수상내역</a>
+					</div>
+					<div class="memberManageMenuEach">
+						<a href="?ctg=납부관리">납부관리</a>
+					</div>
 				</div>
-				<div class="memberManageMenuEach">
-					<a href="?ctg=수상내역">수상내역</a>
+				<div class="memberManageSelect">
+					<div class="memberManageSelectPlaceholder" data-value="${not empty eventList ? eventList[0].eventNo : ''}">
+						<c:if test="${not empty eventList}">
+				            ${eventList[0].eventTitle }
+				        </c:if>
+						<div class="memberManageDown"></div>
+					</div>
+					<div class="memberManageSubSelect">
+						<c:forEach var="event" items="${eventList }">
+							<div class="memberManageSubSelectEach" data-value="${event.eventNo }">${event.eventTitle }</div>
+						</c:forEach>
+					</div>
 				</div>
 			</div>
-			
-				<div id="memberManageContentsBox">
-					<div id="memberManageLeftBox">
-						<div id="memberManageNameSearchBox">
-							<img id="memberManageNameSearchImage" src="<c:url value='/image/mapSearch.png' />">
-							<input type="text" id="memberManageNameSearch" name="memberManageNameSearch" placeholder="이름 검색" value="">
-						</div>
-						<div id="memberManageNameBox1">
-							<c:forEach var="name" items="${nameList }">
-								<div class="memberManageNameEach">
-									<span data-value="${name.childNo }" data-day="${name.leftChk }">${name.childName }</span>
-								</div>
-							</c:forEach>
-						</div>
-						<div id="memberManageNameBox2">
-							<div id="memberManageGymSearchBox"></div>
-						</div>
+			<div id="memberManageContentsBox">
+				<div id="memberManageLeftBox">
+					<div id="memberManageNameSearchBox">
+						<img id="memberManageNameSearchImage" src="<c:url value='/image/mapSearch.png' />">
+						<input type="text" id="memberManageNameSearch" name="memberManageNameSearch" placeholder="이름 검색" value="">
 					</div>
-					<c:if test="${ctg eq '회원정보'}">
+					<div id="memberManageNameBox1">
+						<c:forEach var="name" items="${nameList }">
+							<div class="memberManageNameEach">
+								<span data-value="${name.childNo }" data-day="${name.leftChk }">${name.childName }</span>
+							</div>
+						</c:forEach>
+					</div>
+					<div id="memberManageNameBox2">
+						<div id="memberManageGymSearchBox"></div>
+					</div>
+				</div>
+				<c:if test="${ctg eq '회원정보'}">
 					<div id="memberManageRightBox">
 						<div id="memberManageMemberInfo">
 							<div id="memberManageChooseBox">
@@ -65,7 +82,9 @@
 								</div>
 								<div class="memberManageMemberContents">
 									<img id="memberManageBelt" src="<c:url value='/image/myPageBelt.png'/>" class="memberImage">
-									<input id="memberManageBeltText" name="memberManageBeltText" type="text" value="흰띠" readonly required> <input type="button" id="memberManageModifyBtn" name="memberManageModifyBtn" value="수정하기" class="modifyBtn"> <input type="button" id="memberManageModifySuccessBtn" name="memberManageModifySuccessBtn" value="수정완료" class="modifyBtn">
+									<input id="memberManageBeltText" name="memberManageBeltText" type="text" value="흰띠" readonly required>
+									<input type="button" id="memberManageModifyBtn" name="memberManageModifyBtn" value="수정하기" class="modifyBtn">
+									<input type="button" id="memberManageModifySuccessBtn" name="memberManageModifySuccessBtn" value="수정완료" class="modifyBtn">
 								</div>
 								<div class="memberManageMemberContents">
 									<img id="memberManageDate" src="<c:url value='/image/myPageDate.png'/>" class="memberImage">
@@ -88,20 +107,18 @@
 							</div>
 						</div>
 					</div>
-					</c:if>
-					<c:if test="${ctg eq '수상내역' }">
+				</c:if>
+				<c:if test="${ctg eq '수상내역' }">
 					<div id="memberManageRightBox">
 						<div id="memberManageCompetitionInfo">
 							<div id="memberManageChooseBox">
 								<div id="memberManageChooseTitle">수상 내역</div>
-								<div id="memberManageArrowBox">									
+								<div id="memberManageArrowBox">
 									<img id="memberManageLeftArrow" src="<c:url value='/image/leftArrow.png'/>" class="arrowBtn" data-num="0">
 									<img id="memberManageRightArrow" src="<c:url value='/image/RightArrow.png'/>" class="arrowBtn" data-num="0">
 								</div>
 							</div>
-							<div id = "memberManageCompetitionNullBox">
-								수상 내역을 추가해주세요.
-							</div>
+							<div id="memberManageCompetitionNullBox">수상 내역을 추가해주세요.</div>
 							<div id="memberManageCompetitionContentsBox">
 								<div class="memberManageMemberContents">
 									<img id="memberManageCompetition" src="<c:url value='/image/competition.jfif'/>" class="memberImage">
@@ -117,15 +134,61 @@
 								</div>
 							</div>
 							<div id="memberManageCompetitionButtonBox">
-									<input type="button" id="deleteCompetitionBtn" name="deleteCompetitionBtn" value="삭제하기" class="manageBtn">
-									<input type="button" id="addCompetitionCancleBtn" name="addCompetitionCancleBtn" value="취소" class="manageBtn"> 
-									<input type="button" id="addCompetitionBtn" name="addCompetitionBtn" value="추가하기" class="manageBtn">
-									<input type="button" id="addCompetitionSuccessBtn" name="addCompetitionSuccessBtn" value="추가완료" class="manageBtn">
+								<input type="button" id="deleteCompetitionBtn" name="deleteCompetitionBtn" value="삭제하기" class="manageBtn">
+								<input type="button" id="addCompetitionCancleBtn" name="addCompetitionCancleBtn" value="취소" class="manageBtn">
+								<input type="button" id="addCompetitionBtn" name="addCompetitionBtn" value="추가하기" class="manageBtn">
+								<input type="button" id="addCompetitionSuccessBtn" name="addCompetitionSuccessBtn" value="추가완료" class="manageBtn">
 							</div>
 						</div>
 					</div>
-					</c:if>
-				</div>
+				</c:if>
+				<c:if test="${ctg eq '납부관리' }">
+					<div id="memberManageRightBox">
+						<div id="memberManageMemberInfo">
+							<div id="memberManageChooseBox">
+								<div id="memberManageChooseTitle">납부관리</div>
+								<img id="memberManageChangeImage" src="<c:url value='/image/memberChange.png'/>">
+							</div>
+							<div id="memberManageMemberContentsBox1">
+								<div class="memberManageMemberContents">
+									<img id="memberManageName" src="<c:url value='/image/mapManager.png'/>" class="memberImage">
+									<span id="memberManageChildNameText"></span>
+								</div>
+								<div class="memberManageMemberContents">
+									<img id="memberManageAge" src="<c:url value='/image/myPageAge.png'/>" class="memberImage">
+									<span id="memberManageAgeText"></span>
+								</div>
+								<div class="memberManageMemberContents">
+									<img id="memberManageGender" src="<c:url value='/image/myPageGender.png'/>" class="memberImage">
+									<span id="memberManageGenderText"></span>
+								</div>
+								<div class="memberManageMemberContents">
+									<img id="memberManageNumber" src="<c:url value='/image/mapNumber.png'/>" class="memberImage">
+									<span id="memberManageChildNumberText"></span>
+								</div>
+								<div class="memberManageMemberContents">
+									<img id="memberManageDate" src="<c:url value='/image/myPageDate.png'/>" class="memberImage">
+									<span id="memberManageDateText"></span>
+								</div>
+							</div>
+							<div id="memberManageMemberContentsBox2">
+								<div class="memberManageMemberContents">
+									<img id="memberManageName" src="<c:url value='/image/mapManager.png'/>" class="memberImage">
+									<span id="memberManageMemNameText"></span>
+								</div>
+								<div class="memberManageMemberContents">
+									<img id="memberManageNumber" src="<c:url value='/image/mapNumber.png'/>" class="memberImage">
+									<span id="memberManageNumberText"></span>
+								</div>
+								<div class="memberManageMemberContents">
+									<img id="memberManageAddress" src="<c:url value='/image/mapGymAddress.png'/>" class="memberImage">
+									<span id="memberManageAddressText"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
+			</div>
 		</div>
 	</div>
 </body>

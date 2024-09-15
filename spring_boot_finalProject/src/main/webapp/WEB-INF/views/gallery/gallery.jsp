@@ -21,108 +21,37 @@
 				<div id="galleryViewMenuBox">
 					<div id="galleryViewMenuBox2">
 						<div class="galleryViewMenuEach">
-							<a href="/gallery/gallery"  style="font-weight: 600; font-size: 21px; text-decoration: underline; text-underline-offset: 15px; text-decoration-thickness: 4px;">전체사진</a>
-						</div>
-						<div class="galleryViewMenuEach">
-							<a href="/gallery/gallery">김대현</a>
-						</div>
-						<div class="galleryViewMenuEach">
-							<a href="/gallery/gallery">박동수</a>
+							<a href="/gallery/gallery" style="font-weight: 600; font-size: 21px; text-decoration: underline; text-underline-offset: 15px; text-decoration-thickness: 4px;">전체사진</a>
 						</div>
 					</div>
 
 					<form id="gallerySearchForm" method="get" action="<c:url value='/gallery/gallerySearch' />">
 						<img id="gallerySearchImage" src="<c:url value='/image/mapSearch.png' />">
-						<input type="text" id="gallerySearch" name="keyword"> <input type="submit" id="gallerySearchBtn" value="검색">
+						<input type="text" id="gallerySearch" name="keyword">
+						<input type="submit" id="gallerySearchBtn" value="검색">
 					</form>
 				</div>
 				<div id="galleryViewList">
-					<div class="galleryViewListRow">
-						<div class="galleryViewImageCell">
-							<img src="<c:url value='/image/mainPageGallery1.jpg' />" alt="겨울 놀이" class="galleryViewImage">
+					<c:forEach var="gall" items="${gallList }">
+						<div class="galleryViewListRow" data-no="${gall.galleryNo }">
+							<div class="galleryViewImageCell">
+								<img src="<c:url value='/images/${gall.galleryImg }' />" alt="${gall.galleryTitle }" class="galleryViewImage">
+							</div>
+							<div class="galleryViewInfoCell">
+								<div class="galleryViewDescription">${gall.galleryTitle }</div>
+								<div class="galleryViewDate">${gall.registDate }</div>
+							</div>
 						</div>
-						<div class="galleryViewInfoCell">
-							<div class="galleryViewDescription">겨울 놀이</div>
-							<div class="galleryViewDate">2024-12-18</div>
-						</div>
-					</div>
-
-					<div class="galleryViewListRow">
-						<div class="galleryViewImageCell">
-							<img src="<c:url value='/image/mainPageGallery1.jpg' />" alt="학교 행사" class="galleryViewImage">
-						</div>
-						<div class="galleryViewInfoCell">
-							<div class="galleryViewDescription">학교 행사</div>
-							<div class="galleryViewDate">2024-11-05</div>
-						</div>
-					</div>
-
-					<div class="galleryViewListRow">
-						<div class="galleryViewImageCell">
-							<img src="<c:url value='/image/mainPageGallery1.jpg' />" alt="가을 산책" class="galleryViewImage">
-						</div>
-						<div class="galleryViewInfoCell">
-							<div class="galleryViewDescription">가을 산책</div>
-							<div class="galleryViewDate">2024-10-12</div>
-						</div>
-					</div>
-
-					<div class="galleryViewListRow">
-						<div class="galleryViewImageCell">
-							<img src="<c:url value='/image/mainPageGallery1.jpg' />" alt="친구들과의 추억" class="galleryViewImage">
-						</div>
-						<div class="galleryViewInfoCell">
-							<div class="galleryViewDescription">친구들과의 추억</div>
-							<div class="galleryViewDate">2024-09-28</div>
-						</div>
-					</div>
-
-					<div class="galleryViewListRow">
-						<div class="galleryViewImageCell">
-							<img src="<c:url value='/image/mainPageGallery1.jpg' />" alt="여름 캠프" class="galleryViewImage">
-						</div>
-						<div class="galleryViewInfoCell">
-							<div class="galleryViewDescription">여름 캠프</div>
-							<div class="galleryViewDate">2024-07-20</div>
-						</div>
-					</div>
-
-					<div class="galleryViewListRow">
-						<div class="galleryViewImageCell">
-							<img src="<c:url value='/image/mainPageGallery1.jpg' />" alt="수영장 방문" class="galleryViewImage">
-						</div>
-						<div class="galleryViewInfoCell">
-							<div class="galleryViewDescription">수영장 방문</div>
-							<div class="galleryViewDate">2024-06-05</div>
-						</div>
-					</div>
-
-					<div class="galleryViewListRow">
-						<div class="galleryViewImageCell">
-							<img src="<c:url value='/image/mainPageGallery1.jpg' />" alt="운동회 단체 사진" class="galleryViewImage">
-						</div>
-						<div class="galleryViewInfoCell">
-							<div class="galleryViewDescription">운동회 단체 사진</div>
-							<div class="galleryViewDate">2024-05-15</div>
-						</div>
-					</div>
-
-					<div class="galleryViewListRow">
-						<div class="galleryViewImageCell">
-							<img src="<c:url value='/image/mainPageGallery1.jpg' />" alt="봄 소풍" class="galleryViewImage">
-						</div>
-						<div class="galleryViewInfoCell">
-							<div class="galleryViewDescription">봄 소풍</div>
-							<div class="galleryViewDate">2024-04-10</div>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
+				
+				<c:if test="${not empty gymNo }">
 					<div id="galleryViewButtonBox">
-	                    <div class="galleryViewWriteButton">
-	                        <a href="<c:url value='/gallery/insertGalleryForm' />">갤러리 작성</a>
-	                    </div>
-	                </div>
-
+						<div class="galleryViewWriteButton">
+							<a href="<c:url value='/gallery/insertGalleryForm' />">갤러리 작성</a>
+						</div>
+					</div>
+				</c:if>
 				<div class="galleryViewPagination">
 					<div class="galleryViewPaginationMove">
 						<div class="galleryViewPaginationDoubleLeft"></div>
@@ -132,7 +61,7 @@
 						<div class="galleryViewPaginationDoubleLeft"></div>
 					</div>
 					<div id="galleryViewNumberBox">
-						<c:forEach var="i" begin="1" end="${totalPages}">
+						<c:forEach var="i" begin="1" end="${totalPage}">
 							<a href="?ctg=${ctg}&page=${i}&pageSize=${pageSize}" class="${i == currentPage ? 'active' : ''}">${i}</a>
 						</c:forEach>
 					</div>

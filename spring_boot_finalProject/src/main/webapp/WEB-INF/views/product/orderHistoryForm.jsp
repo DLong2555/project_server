@@ -89,24 +89,46 @@
 								</div>
 								<div class="orderItemDetails">
 									<c:forEach var="pay" items="${payList.payList}">
-										<div class="orderItemDetail">
-											<%-- <img src="<c:url value='/images/${prdList.prdImg }'/>" alt="상품 A 이미지" class="orderItemImage"> --%>
-											<div class="orderItemInfo">
-												<div class="orderItemName">${pay.childName }</div>
-												<div class="orderItemSize">
-													도장: <span>${pay.gymName }</span>
-												</div>
-												<div class="orderItemQuantity">
-													개월: <span>${pay.payMonth }</span>개월
-												</div>
-												<div class="orderItemPrice">
-													가격: <span>${pay.gymPrice }</span>
-												</div>
-												<div class="orderItemTotalPrice">
-													총 가격: <span>${pay.gymPrice * pay.payMonth }</span>
+										<c:if test="${payList.payCtg eq '회비' }">
+											<div class="orderItemDetail">
+												<%-- <img src="<c:url value='/images/${prdList.prdImg }'/>" alt="상품 A 이미지" class="orderItemImage"> --%>
+												<div class="orderItemInfo">
+													<div class="orderItemName">${pay.childName }</div>
+													<div class="orderItemSize">
+														도장: <span>${pay.gymName }</span>
+													</div>
+													<div class="orderItemQuantity">
+														개월: <span>${pay.payMonth }</span>개월
+													</div>
+													<div class="orderItemPrice">
+														가격: <span>${pay.gymPrice }</span>
+													</div>
+													<div class="orderItemTotalPrice">
+														총 가격: <span>${pay.gymPrice * pay.payMonth }</span>
+													</div>
 												</div>
 											</div>
-										</div>
+										</c:if>
+										<c:if test="${payList.payCtg eq '특수' }">
+											<div class="orderItemDetail">
+												<%-- <img src="<c:url value='/images/${prdList.prdImg }'/>" alt="상품 A 이미지" class="orderItemImage"> --%>
+												<div class="orderItemInfo">
+													<div class="orderItemName">${pay.childName }</div>
+													<div class="orderItemSize">
+														도장: <span>${pay.gymName }</span>
+													</div>
+													<div class="orderItemSize">
+														활동: <span>${pay.eventTitle }</span>
+													</div>
+													<div class="orderItemPrice">
+														가격: <span>${pay.eventPrice }</span>
+													</div>
+													<div class="orderItemTotalPrice">
+														총 가격: <span>${pay.eventPrice}</span>
+													</div>
+												</div>
+											</div>
+										</c:if>
 									</c:forEach>
 								</div>
 							</div>

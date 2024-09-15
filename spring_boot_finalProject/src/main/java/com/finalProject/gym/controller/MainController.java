@@ -25,8 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.finalProject.gym.model.AwardVO;
 import com.finalProject.gym.model.ChildVO;
+import com.finalProject.gym.model.EventVO;
 import com.finalProject.gym.model.MemberVO;
 import com.finalProject.gym.service.ChildService;
+import com.finalProject.gym.service.GalleryService;
 import com.finalProject.gym.service.GymService;
 import com.finalProject.gym.service.MemberService;
 
@@ -34,14 +36,20 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
+	private MemberService memService;
+	private GymService gymService;
+	private ChildService childService;
+	private GalleryService gallService;
+	
 	@Autowired
-	MemberService memService;
-
-	@Autowired
-	GymService gymService;
-
-	@Autowired
-	ChildService childService;
+	public MainController(MemberService memService, ChildService childService,
+						  GymService gymService, GalleryService gallService) {
+		this.memService = memService;
+		this.childService = childService;
+		this.gymService = gymService;
+		this.gallService = gallService;
+	}
+	
 
 	// 메인페이지 이동
 	@RequestMapping("/")
@@ -56,14 +64,14 @@ public class MainController {
 		String memId = (String) session.getAttribute("sid");
 		MemberVO vo = memService.getMemData(memId);
 		HashMap<String, String> map = new HashMap<String, String>();
-		
+
 		if (vo != null) {
 			map.put("loginChk", "login");
 			map.put("memNick", vo.getMemNick());
 			map.put("memImgNo", vo.getMemImgNo());
 			map.put("memEmail", vo.getMemEmail());
 		}
-		
+
 		return map;
 	}
 
@@ -164,10 +172,10 @@ public class MainController {
 		if (vo != null) {
 			session.setAttribute("sid", map.get("memId"));
 			session.setAttribute("sidNick", vo.getMemNick());
-			if(vo.getGymNo() != null) {
+			if (vo.getGymNo() != null) {
 				session.setAttribute("sidGymNo", vo.getGymNo());
 			}
-			
+
 			result = true;
 		}
 
@@ -215,32 +223,42 @@ public class MainController {
 
 	// 마이 페이지 회원관리
 	@RequestMapping("/member/memberManageForm")
-	public String memberMangeForm(@RequestParam(value = "ctg", required = false, defaultValue = "회원정보") String ctg,HttpSession session, Model model) {
-		
-		String gymNo = (String)session.getAttribute("sidGymNo");
+	public String memberMangeForm(@RequestParam(value = "ctg", required = false, defaultValue = "회원정보") String ctg,
+			                      @RequestParam(value = "eventNo", required = false) String no, 
+								  HttpSession session, Model model) {
+
+		String memId = (String) session.getAttribute("sid");
+		String gymNo = (String) session.getAttribute("sidGymNo");
 		
 		DateTimeFormatter calFm = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate now = LocalDate.now();
-		
+
 		ArrayList<ChildVO> nameList = memService.getMyGymChildName(gymNo);
-		
-		for(ChildVO cvo : nameList) {
+
+		for (ChildVO cvo : nameList) {
 			String deadLine = cvo.getDeadLine();
 			deadLine = deadLine.substring(0, 4) + "-" + deadLine.substring(6, 8) + "-" + deadLine.substring(10, 12);
 			LocalDate line = LocalDate.parse(deadLine, calFm);
-			long left = ChronoUnit.DAYS.between(now,line);
-			
-			if(left <= 7 && left >= 0) cvo.setLeftChk("soon");	
-			else if(left < 0) cvo.setLeftChk("ended");
-			else cvo.setLeftChk("plenty");
-			
+			long left = ChronoUnit.DAYS.between(now, line);
+
+			if (left <= 7 && left >= 0)
+				cvo.setLeftChk("soon");
+			else if (left < 0)
+				cvo.setLeftChk("ended");
+			else
+				cvo.setLeftChk("plenty");
+
 		}
-		model.addAttribute("nameList",nameList);
-		model.addAttribute("ctg", ctg);
 		
+		ArrayList<EventVO> eventList = gallService.getEventDataToManageForm(memId);
+				
+		model.addAttribute("nameList", nameList);
+		model.addAttribute("ctg", ctg);
+		model.addAttribute("eventList", eventList);
+
 		return "member/memberManageForm";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/member/getMemDateByChildNo")
 	public ChildVO getMemDateByChildNo(@RequestParam("childNo") String childNo) {
@@ -249,58 +267,87 @@ public class MainController {
 		return cvo;
 	}
 	
+	//납부관리
 	@ResponseBody
-	@RequestMapping("/member/getAwardContents")
-	public AwardVO getAwardContents(@RequestParam("childNo") String childNo, @RequestParam(defaultValue = "1") int page) {
-		
-		int totalPageNum = memService.totalAwardPage(childNo);
-		if(totalPageNum > 0) {
-			AwardVO avo = memService.getAwardContents(childNo, page);
+	@RequestMapping("/member/getChildNoJoinEvent")
+	public ArrayList<Integer> getChildNoJoinEvent(@RequestParam("eventNo") String no) {
+		if(no != null) {
+			int eventNo = Integer.parseInt(no);
+			ArrayList<Integer> eventNoList = memService.getChildNoJoinEvent(eventNo);
 			
-			avo.setTotalPage(totalPageNum);
-			
-			SimpleDateFormat fmt = new SimpleDateFormat("yyyy년 M월 d일", Locale.KOREAN);
-			String dateFmt = fmt.format(avo.getGetAwardDay());
-			
-			avo.setDateFmt(dateFmt);
-			
-			return avo;
+			return eventNoList;		
 		}
 		
 		return null;
 	}
 	
-	//회원관리 이름 검색
+	@ResponseBody
+	@RequestMapping("/member/getAwardContents")
+	public AwardVO getAwardContents(@RequestParam("childNo") String childNo,
+			@RequestParam(defaultValue = "1") int page) {
+
+		int totalPageNum = memService.totalAwardPage(childNo);
+		if (totalPageNum > 0) {
+			AwardVO avo = memService.getAwardContents(childNo, page);
+
+			avo.setTotalPage(totalPageNum);
+
+			SimpleDateFormat fmt = new SimpleDateFormat("yyyy년 M월 d일", Locale.KOREAN);
+			String dateFmt = fmt.format(avo.getGetAwardDay());
+
+			avo.setDateFmt(dateFmt);
+
+			return avo;
+		}
+
+		return null;
+	}
+
+	// 회원 아이 수상내역
+	@RequestMapping("/member/memAwardForm")
+	public String memAwardForm(HttpSession session, Model model) {
+		String memId = (String) session.getAttribute("sid");
+		MemberVO vo = memService.getMemData(memId);
+		
+		model.addAttribute("vo", vo);
+		
+		return "member/memberAwardForm";
+	}
+
+	// 회원관리 이름 검색
 	@ResponseBody
 	@RequestMapping("/member/childNameSearch")
-	public ArrayList<ChildVO> childNameSearch(@RequestParam("word") String word ,HttpSession session){
-		String memId = (String)session.getAttribute("sid");
-		
+	public ArrayList<ChildVO> childNameSearch(@RequestParam("word") String word, HttpSession session) {
+		String memId = (String) session.getAttribute("sid");
+
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memId", memId);
 		map.put("word", word);
-		
+
 		DateTimeFormatter calFm = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate now = LocalDate.now();
-		
+
 		ArrayList<ChildVO> childList = memService.childNameSearch(map);
-		
-		for(ChildVO cvo : childList) {
+
+		for (ChildVO cvo : childList) {
 			String deadLine = cvo.getDeadLine();
 			deadLine = deadLine.substring(0, 4) + "-" + deadLine.substring(6, 8) + "-" + deadLine.substring(10, 12);
 			LocalDate line = LocalDate.parse(deadLine, calFm);
-			long left = ChronoUnit.DAYS.between(now,line);
-			
-			if(left <= 7 && left >= 0) cvo.setLeftChk("soon");	
-			else if(left < 0) cvo.setLeftChk("ended");
-			else cvo.setLeftChk("plenty");
-			
+			long left = ChronoUnit.DAYS.between(now, line);
+
+			if (left <= 7 && left >= 0)
+				cvo.setLeftChk("soon");
+			else if (left < 0)
+				cvo.setLeftChk("ended");
+			else
+				cvo.setLeftChk("plenty");
+
 		}
-		
+
 		return childList;
 	}
-	
-	//마이페이지 띠 수정
+
+	// 마이페이지 띠 수정
 	@ResponseBody
 	@RequestMapping("/member/childBeltUpdate")
 	public void childBeltUpdate(@RequestParam HashMap<String, Object> map) {
@@ -331,22 +378,22 @@ public class MainController {
 
 		return result;
 	}
-	
-	//회원 수상 경력 추가
+
+	// 회원 수상 경력 추가
 	@ResponseBody
 	@RequestMapping("/member/addAwardContents")
 	public void addAwardContents(@ModelAttribute AwardVO awardvo) throws ParseException {
 		String date = awardvo.getDateFmt();
-		
+
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date awardDate = formatter.parse(date);
-		
+
 		awardvo.setGetAwardDay(awardDate);
-		
+
 		memService.addAwardContents(awardvo);
 	}
-	
-	//회원 수상 경력 삭제
+
+	// 회원 수상 경력 삭제
 	@RequestMapping("/member/awardDelete")
 	@ResponseBody
 	public void awardDelete(@RequestParam("awardNo") int awardNo) {
@@ -358,9 +405,9 @@ public class MainController {
 	@RequestMapping("/member/imageFileUpload")
 	public void imageFileUpload(@RequestParam("uploadFile") MultipartFile file, HttpSession session)
 			throws IOException {
-		//String uploadPath = "C:/springWorkspace/upload/";
-		//이미지 업로드 서버 경로
-		String uploadPath = "/usr/local/project/upload/";
+		String uploadPath = "C:/springWorkspace/upload/";
+		// 이미지 업로드 서버 경로
+		// String uploadPath = "/usr/local/project/upload/";
 
 		String originalFileName = file.getOriginalFilename();
 
@@ -382,14 +429,38 @@ public class MainController {
 	@RequestMapping("/member/imageFileUploadOnly")
 	public void imageFileUploadOnly(@RequestParam("uploadFile") MultipartFile file, HttpSession session)
 			throws IOException {
-		//String uploadPath = "C:/springWorkspace/upload/";
-		String uploadPath = "/usr/local/project/upload/";
+		String uploadPath = "C:/springWorkspace/upload/";
+		// String uploadPath = "/usr/local/project/upload/";
 
 		String originalFileName = file.getOriginalFilename();
 
 		File sendFile = new File(uploadPath + originalFileName);
 
 		file.transferTo(sendFile);
+	}
+
+	// 여러장 업로드
+	@ResponseBody
+	@RequestMapping("/member/imageFileUploadMulti")
+	public ArrayList<String> imageFileUploadMulti(@RequestParam("uploadFile") MultipartFile[] files, HttpSession session)
+			throws IOException {
+		String uploadPath = "C:/springWorkspace/upload/";
+		// String uploadPath = "/usr/local/project/upload/";
+		
+		ArrayList<String> fileNameList = new ArrayList<String>();
+		
+		for(MultipartFile file : files) {
+			if(!file.isEmpty()) {
+				String originalFileName = file.getOriginalFilename();
+				
+				fileNameList.add(originalFileName);
+				
+				File sendFile = new File(uploadPath + originalFileName);
+				file.transferTo(sendFile);
+			}
+		}
+		System.out.println(fileNameList);
+		return fileNameList;
 	}
 
 	// 마이페이지 정보 업데이트

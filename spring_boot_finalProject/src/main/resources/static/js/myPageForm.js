@@ -75,20 +75,20 @@ $(document).ready(function() {
         } else if (text === '회원관리') {
             // 화면의 너비와 높이를 계산하여 창의 중앙 좌표 설정
             var width = 800; // 새 창의 너비
-            var height = 600; // 새 창의 높이
+            var height = 573; // 새 창의 높이
             var left = (window.screen.width / 2) - (width / 2); // 중앙으로 위치 계산 (가로)
             var top = (window.screen.height / 2) - (height / 2); // 중앙으로 위치 계산 (세로)
 
 			if(newWindow && !newWindow.closed){
 				newWindow.close();
 			}
-
+			console.log(1);
             newWindow = window.open('/member/memberManageForm', '_blank', `width=${width},height=${height},left=${left},top=${top}`);
         }
     });
     
     $('#memAwards').click(function() {
-       window.location.href = '/member/memberManageForm'; // 이동할 URL을 지정
+       window.location.href = '/member/memAwardForm'; // 이동할 URL을 지정/member/memberManageForm
     });
     
     $('#memDeleteAccount').on('click',function(){

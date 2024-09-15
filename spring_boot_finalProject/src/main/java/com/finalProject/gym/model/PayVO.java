@@ -14,11 +14,14 @@ public class PayVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date payDate;
 	private String payOption;
+	private int eventNo;
 	
 	private String childName;
 	private int gymPrice;
 	private String payDateFmt;
 	private ArrayList<PayVO> payList;
+	private int eventPrice;
+	private String eventTitle;
 	
 	public int getPayNo() {
 		return payNo;
@@ -85,6 +88,24 @@ public class PayVO {
 	}
 	public void setPayOption(String payOption) {
 		this.payOption = payOption;
+	}
+	public int getEventNo() {
+		return eventNo;
+	}
+	public void setEventNo(int eventNo) {
+		this.eventNo = eventNo;
+	}
+	public int getEventPrice() {
+		return eventPrice;
+	}
+	public void setEventPrice(int eventPrice) {
+		this.eventPrice = eventPrice;
+	}
+	public String getEventTitle() {
+		return eventTitle;
+	}
+	public void setEventTitle(String eventTitle) {
+		this.eventTitle = eventTitle;
 	}
 	
 	

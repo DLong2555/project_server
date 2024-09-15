@@ -19,7 +19,7 @@ public interface IChildService {
 	public ChildVO getAlreadyRegistGymName(String childNo); //이미 도장이 등록 되어 있는지 확인
 	public void registGymNewChild(ChildVO chvo); // 도장 신규 등록
 	public ArrayList<String> getMyGymName(String memId); // 다니고 있는 도장가져오기
-	public int payNoChk(); //납부번호 중복확인\
+	public int payNoChk(); //납부번호 중복확인
 	public void insertPayInfo(PayVO payvo); //납부 정보 등록
 	public ArrayList<PayVO> getPayInfo(String memId); //납부 정보 가져오기
 }

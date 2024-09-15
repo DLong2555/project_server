@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finalProject.gym.model.ChildVO;
+import com.finalProject.gym.model.EventVO;
 import com.finalProject.gym.model.MemberVO;
 import com.finalProject.gym.service.ChildService;
+import com.finalProject.gym.service.GalleryService;
 import com.finalProject.gym.service.GymService;
 import com.finalProject.gym.service.MemberService;
 
@@ -26,13 +28,16 @@ public class GymController {
 	private GymService gymService;
 	private ChildService childService;
 	private MemberService memService;
+	private GalleryService gallService;
 
 	@Autowired
-	public GymController(GymService gymService, ChildService childService, MemberService memService) {
+	public GymController(GymService gymService, ChildService childService, MemberService memService,
+			             GalleryService gallService) {
 
 		this.gymService = gymService;
 		this.childService = childService;
 		this.memService = memService;
+		this.gallService = gallService;
 	}
 
 	// 업주 회원가입 페이지
@@ -43,22 +48,36 @@ public class GymController {
 
 	// 도장 등록 페이지
 	@RequestMapping("/gym/joinAndPayGym")
-	public String joinAndPayGym(@RequestParam(value="ctg", defaultValue = "회비") String ctg ,Model model, HttpSession session) {
+	public String joinAndPayGym(@RequestParam(value="ctg", defaultValue = "회비") String ctg, @RequestParam(value="eventNo", required = false) String no, 
+											  @RequestParam(value="childNo", required = false) String childNo, Model model, HttpSession session) {
 		String memId = (String) session.getAttribute("sid");
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		ArrayList<ChildVO> chvoList = childService.getMyChildren(memId);
-
-		if (chvoList != null) {
+		
+		if (chvoList != null && no == null) {
 			for (ChildVO vo : chvoList) {
 				if (!vo.getGymName().equals("미등록")) {
 					map.put(vo.getGymName(), gymService.getGymPriceByGymName(vo.getGymName()).getGymPrice());
 				}
 			}
 
-			if (!map.isEmpty())
-				model.addAttribute("map", map);
+			if (!map.isEmpty()) model.addAttribute("map", map);
+				
 
 			model.addAttribute("chvoList", chvoList);
+		}else {
+			int eventNo = Integer.parseInt(no);
+			EventVO event = gallService.getEventPayInfo(eventNo);
+			ArrayList<ChildVO> childList = new ArrayList<ChildVO>();
+			
+			for(ChildVO child:chvoList) {
+				if(child.getGymName().equals(event.getGymName())) {
+					childList.add(child);
+				}
+			}
+			
+			model.addAttribute("chvoList", childList);
+			model.addAttribute("event",event);
 		}
 		
 		model.addAttribute("ctg", ctg);
