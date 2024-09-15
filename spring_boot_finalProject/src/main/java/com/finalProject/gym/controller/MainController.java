@@ -405,9 +405,9 @@ public class MainController {
 	@RequestMapping("/member/imageFileUpload")
 	public void imageFileUpload(@RequestParam("uploadFile") MultipartFile file, HttpSession session)
 			throws IOException {
-		String uploadPath = "C:/springWorkspace/upload/";
+		//String uploadPath = "C:/springWorkspace/upload/";
 		// 이미지 업로드 서버 경로
-		// String uploadPath = "/usr/local/project/upload/";
+		String uploadPath = "/usr/local/project/upload/";
 
 		String originalFileName = file.getOriginalFilename();
 
@@ -429,8 +429,8 @@ public class MainController {
 	@RequestMapping("/member/imageFileUploadOnly")
 	public void imageFileUploadOnly(@RequestParam("uploadFile") MultipartFile file, HttpSession session)
 			throws IOException {
-		String uploadPath = "C:/springWorkspace/upload/";
-		// String uploadPath = "/usr/local/project/upload/";
+		//String uploadPath = "C:/springWorkspace/upload/";
+		String uploadPath = "/usr/local/project/upload/";
 
 		String originalFileName = file.getOriginalFilename();
 
@@ -444,8 +444,8 @@ public class MainController {
 	@RequestMapping("/member/imageFileUploadMulti")
 	public ArrayList<String> imageFileUploadMulti(@RequestParam("uploadFile") MultipartFile[] files, HttpSession session)
 			throws IOException {
-		String uploadPath = "C:/springWorkspace/upload/";
-		// String uploadPath = "/usr/local/project/upload/";
+		//String uploadPath = "C:/springWorkspace/upload/";
+		String uploadPath = "/usr/local/project/upload/";
 		
 		ArrayList<String> fileNameList = new ArrayList<String>();
 		
