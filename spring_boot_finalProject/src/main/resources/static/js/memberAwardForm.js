@@ -26,62 +26,100 @@ $(document).ready(function() {
        window.location.href = '/member/myPageChildInfo'; // 이동할 URL을 지정/member/memberManageForm
     });        
     
-    $("#awardPlus").on('click', function() {
-        const newUserEach = $("<div>", { class: "memberAwardRegisterUserEach" });
-        newUserEach.html("<p>등록회원</p>");
-
-        const image = $("<img>", {
-            src: "/image/myPageDown.jpg",
-            alt: "Down Image",
-            class: "memberAwardDown"
-        });
-
-        const subMenu = $("<div>", { class: "memberAwardRegisterUserSub" });
-        subMenu.html(`
-            <div class="memberAwardRegisterSubBox">
-                  <div id="memberAwardCompetitionInfo">
-                     <div id="memberAwardChooseBox">
-                        <div id="memberAwardArrowBox">
-                           <img id="memberAwardLeftArrow" src="/image/leftArrow.png" class="arrowBtn" data-num="0">
-                           <img id="memberAwardRightArrow" src="/image/RightArrow.png" class="arrowBtn" data-num="0">
-                        </div>
-                     </div>
-                     <div id="memberAwardCompetitionNullBox">수상 내역이 없습니다.</div>
-                     <div id="memberAwardCompetitionContentsBox">
-                        <div class="memberAwardMemberContents">
-                           <img id="memberAwardCompetition" src="/image/competition.jfif" class="awardImage">
-                           <input id="memberAwardCompetitionText" name="memberAwardCompetitionDateText" type="text" value="" readonly required>
-                        </div>
-                        <div class="memberAwardMemberContents">
-                           <img id="memberAwardCompetitionDate" src="/image/myPageDate.png" class="awardImage">
-                           <input id="memberAwardCompetitionDateText" name="memberAwardCompetitionDateText" type="text" value="" readonly required>
-                        </div>
-                        <div class="memberAwardMemberContents">
-                           <img id="memberAwardTrophy" src="/image/Trophy.png" class="awardImage">
-                           <input id="memberAwardCompetitionTrophyText" name="memberAwardCompetitionTrophyText" type="text" value="" readonly required>
-                        </div>
-                     </div>
-                  </div>
-            </div>
-        `);
-
-        newUserEach.append(image);
-        $("#memberAwardRegisterUserData").append(newUserEach);
-        $("#memberAwardRegisterUserData").append(subMenu);
-
-        // Toggle submenu visibility when the image is clicked
-        image.on('click', function() {
-            const isOpen = subMenu.css('display') === 'flex';
-            $(".memberAwardRegisterUserSub").hide();
-            $(".memberAwardDown").css('transform', 'rotate(0deg)');
-            $(".memberAwardRegisterUserEach").css('border', '1px solid #a3a3a3');
-
-            if (!isOpen) {
-                subMenu.css('display', 'flex');
-                image.css('transform', 'rotate(180deg)');
-                newUserEach.css('border', '2px solid black');
+    $(document).on('click', '.memberAwardRegisterUserEach', function(){
+    	let subElement = $(this).closest('#memberAwardRegisterUserData').find('.memberAwardRegisterUserSub');
+    	let no = $(this).attr('data-no');   	
+    	let position = $(this);
+    	let page = 0;
+    	
+    	if(subElement.css('display') === 'none'){
+    		subElement.css('display', 'flex');
+    		
+    		loadAwardContents(no, page, position);    		
+    	}else{
+    		subElement.css('display', 'none');
+    		position.closest('#memberAwardRegisterUserData').find('#memberAwardLeftArrow').attr("data-num", 0);
+    		position.closest('#memberAwardRegisterUserData').find('#memberAwardRightArrow').attr("data-num", 0);
+    	}
+    	
+    	position.closest('#memberAwardRegisterUserData').find('#memberAwardRightArrow').off('click').on('click',function(){
+	        let page = parseInt($(this).attr("data-num")) + 1;
+	         
+	        if(page >= totalPage){           
+	           page = totalPage;
+	        }
+	         
+	        loadAwardContents(no, page, position);
+	         
+	        $(this).attr("data-num", page);
+	        position.closest('#memberAwardRegisterUserData').find('#memberAwardLeftArrow').attr("data-num", page);
+	    });
+   
+	    position.closest('#memberAwardRegisterUserData').find('#memberAwardLeftArrow').off('click').on('click',function(){
+	         let page = parseInt($(this).attr("data-num")) - 1;
+	         
+	         if(page <= 0){          
+	            page = 0;
+	         }
+	         
+	         loadAwardContents(no, page, position);
+	         
+	         $(this).attr("data-num", page);
+	         position.closest('#memberAwardRegisterUserData').find('#memberAwardRightArrow').attr("data-num", page);
+	    });
+    });
+    
+    var totalPage = 0;
+    var awardNo = 0;
+    function loadAwardContents(no, page, position){
+       let pageNum = parseInt(page) + 1;
+       let $this = position.closest('#memberAwardRegisterUserData');
+       
+       $.ajax({
+            type:"post",
+            url:"/member/getAwardContents",
+            data:{"childNo":no, "page":pageNum},
+            success:function(result){
+               if(result){
+                  $this.find('#memberAwardCompetitionText').val(result.awardTitle);
+                  $this.find('#memberAwardCompetitionDateText').val(result.dateFmt);
+                  $this.find('#memberAwardCompetitionTrophyText').val(result.ranking);
+                  
+                  awardNo = result.awardNo;
+                  totalPage = result.totalPage - 1;
+                  $this.find('#memberAwardCompetitionContentsBox').css('display', 'flex');
+                  $this.find('#memberAwardCompetitionNullBox').css('display', 'none');
+                  $this.find('#memberAwardArrowBox').css("display", "flex");
+                 
+                  displayArrow(page, position);
+               }else{
+                  $this.find('#memberAwardCompetitionContentsBox').css('display', 'none');
+                  $this.find('#memberAwardCompetitionNullBox').css('display', 'flex');
+                  $this.find('#memberAwardArrowBox').css("display", "none");
+                  
+               }
             }
-        });
-    });    
+         });
+    }    
+   
+   function displayArrow(page, position){
+   	   let $this = position.closest('#memberAwardRegisterUserData');
+       if(totalPage == 0){
+          	$this.find('#memberAwardRightArrow').css("visibility", "hidden");
+            $this.find('#memberAwardLeftArrow').css("visibility", "hidden");
+       }else{
+          if(page == 0){
+               $this.find('#memberAwardRightArrow').css("visibility", "visible");
+               $this.find('#memberAwardLeftArrow').css("visibility", "hidden");
+          }else if(page == totalPage){
+               $this.find('#memberAwardRightArrow').css("visibility", "hidden");
+               $this.find('#memberAwardLeftArrow').css("visibility", "visible");
+          }else{
+               $this.find('#memberAwardRightArrow').css("visibility", "visible");
+               $this.find('#memberAwardLeftArrow').css("visibility", "visible");
+          }
+       }
+    }
+
 });
 

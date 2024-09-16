@@ -214,3 +214,10 @@
 #modifyGalleryPage #modifyGalleryBtn:hover {
 	background-color: #a2a2a2;
 }
+
+
+#modifyGalleryPage .galleryMainImage {
+	width: 400px;
+	height: auto;
+	margin: 5px;
+}

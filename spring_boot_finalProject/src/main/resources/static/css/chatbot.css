@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+/* 전체 래퍼 */
+#wrap {
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* 헤더 영역 */
+#chatHeader {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    font-size: 18px;
+}
+
+#chatHeader button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* 채팅 메시지 출력 영역 */
+#chatBox {
+    height: 400px;
+    padding: 20px;
+    overflow-y: auto;
+    border-bottom: 1px solid #ddd;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+/* 채팅 메시지 스타일 */
+.message {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: flex-start;
+}
+
+.message.bot {
+    justify-content: flex-start;
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message .bubble {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* 사용자 메시지 스타일 */
+.message.user .bubble {
+    background-color: #007BFF;
+    color: white;
+    border-top-right-radius: 0;
+}
+
+/* 봇 메시지 스타일 */
+.message.bot .bubble {
+    background-color: #e5e5e5;
+    color: #333;
+    border-top-left-radius: 0;
+}
+
+/* 채팅 입력 영역 */
+#chatForm {
+    display: flex;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f1f1f1;
+}
+
+#chatForm input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#chatForm input[type="submit"] {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 스크롤바 커스터마이징 */
+#chatBox::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chatBox::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}

@@ -65,8 +65,15 @@
 	                <span>2024-2024 FitHub.com, Inc</span>
 	            </div>
 	        </div>
-	    </div>
-	</div>
+
+				<div id="bottomChatBotBox">
+					<div id="bottomChatBotChatBox"><c:import url="/WEB-INF/views/ai/chatForm.jsp" /></div>
+					<div id="bottomChatBotBtn">
+						<img src="<c:url value='/image/chatbot.png'/>" class="bottomChatBot" id = "ChatBotImage">
+						<img src="<c:url value='/image/x.png'/>" class="bottomChatBot" id = "xImage">
+					</div>
+				</div>
+			</div>
     </c:if>
     <c:if test="${empty sessionScope.sid }">
     <div id="headerBottom">
@@ -130,6 +137,14 @@
 	                <span class="divider"></span>
 	                <span>2024-2024 FitHub.com, Inc</span>
 	            </div>
+	        </div>
+				<div id="bottomChatBotBox">
+					<div id="bottomChatBotChatBox"><c:import url="/WEB-INF/views/ai/chatForm.jsp" /></div>
+					<div id="bottomChatBotBtn">
+						<img src="<c:url value='/image/chatbot.png'/>" class="bottomChatBot" id = "ChatBotImage">
+						<img src="<c:url value='/image/x.png'/>" class="bottomChatBot" id = "xImage">
+					</div>
+				</div>
 	        </div>
 	    </div>
 	</div>

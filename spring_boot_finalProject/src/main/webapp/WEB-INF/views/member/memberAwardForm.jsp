@@ -39,7 +39,7 @@
 								</c:if>
 							</div>
 							<c:if test="${vo.gymNo == null }">
-								<div class="memberAwardMenuEach" id="awardAwards" style="font-weight: 600; font-size: 21px; text-decoration: underline; text-underline-offset: 15px; text-decoration-thickness: 2px;">수상내역</div>							
+								<div class="memberAwardMenuEach" id="awardAwards" style="font-weight: 600; font-size: 21px; text-decoration: underline; text-underline-offset: 15px; text-decoration-thickness: 2px;">수상내역</div>
 							</c:if>
 							<div class="memberAwardMenuEach" id="awardDeleteAccount">회원탈퇴</div>
 						</div>
@@ -47,12 +47,46 @@
 					<div id="memberAwardRightBox">
 						<div id="memberAwardRegisterInfo">
 							<div id="memberAwardRegisterContainer">
-								<div id="memberAwardRegisterUser">
-									<div id="memberAwardRegisterUserData"></div>
-									<div id="memberAwardRegisterUserPlus">
-										<img id="awardPlus" src="<c:url value='/image/myPagePlusButton.jpg' />">
+								<c:forEach var="child" items="${childList }">
+									<div id="memberAwardRegisterUser">
+										<div id="memberAwardRegisterUserData">
+											<div class="memberAwardRegisterUserEach" data-no="${child.childNo }">
+												${child.childName}
+												<img class="memberAwardDown" src="<c:url value='/image/myPageDown.jpg' />">
+											</div>
+											<div class="memberAwardRegisterUserSub">
+												<div class="memberAwardRegisterSubBox">
+													<div id="memberAwardCompetitionInfo">
+														<div id="memberAwardChooseBox">
+													<div id = "memberAwardCompetitionTitle">
+													수상내역
+													</div>
+															<div id="memberAwardArrowBox">
+																<img id="memberAwardLeftArrow" src="/image/leftArrow.png" class="arrowBtn" data-num="0">
+																<img id="memberAwardRightArrow" src="/image/RightArrow.png" class="arrowBtn" data-num="0">
+															</div>
+														</div>
+														<div id="memberAwardCompetitionNullBox">수상 내역이 없습니다.</div>
+														<div id="memberAwardCompetitionContentsBox">
+															<div class="memberAwardMemberContents">
+																<img id="memberAwardCompetition" src="/image/competition.jfif" class="awardImage">
+																<input id="memberAwardCompetitionText" name="memberAwardCompetitionDateText" type="text" value="" readonly required>
+															</div>
+															<div class="memberAwardMemberContents">
+																<img id="memberAwardCompetitionDate" src="/image/myPageDate.png" class="awardImage">
+																<input id="memberAwardCompetitionDateText" name="memberAwardCompetitionDateText" type="text" value="" readonly required>
+															</div>
+															<div class="memberAwardMemberContents">
+																<img id="memberAwardTrophy" src="/image/Trophy.png" class="awardImage">
+																<input id="memberAwardCompetitionTrophyText" name="memberAwardCompetitionTrophyText" type="text" value="" readonly required>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>									
 									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 					</div>

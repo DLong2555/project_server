@@ -37,10 +37,10 @@
     <link rel="stylesheet" type="text/css" href="<c:url value='/css/memberAwardForm.css'/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/css/modifyGalleryForm.css'/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/css/memberAwardForm.css'/>">
-	
+	<link rel="stylesheet" type="text/css" href="<c:url value='/css/chatbot.css'/>">
 	<script src="<c:url value='/js/jquery-3.7.1.min.js'/>"></script>
 	<script src="<c:url value='/js/layoutTop.js'/>"></script>
-	
+	<script src="<c:url value='/js/layoutBottom.js'/>"></script>
 	
 	
 

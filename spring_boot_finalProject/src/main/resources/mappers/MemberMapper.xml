@@ -149,6 +149,15 @@
 		FROM order_pay
 		WHERE eventNo = #{eventNo}
 	</select>
+	
+	<!--내 아이 수상내역 가져오기-->
+	<select id="getMyChildAward" parameterType="String" resultType="com.finalProject.gym.model.AwardVO">
+		SELECT c.childName, c.childNo, a.awardNo, a.awardTitle, a.getAwardDay, a.ranking, c.gymName
+		FROM award a
+		JOIN child c ON c.childNo = a.childNo
+		WHERE c.memId = #{memId};
+		ORDER BY a.getAwardDay DESC, a.awardTitle
+	</select>
   </mapper>
   
   

@@ -59,25 +59,7 @@
 									<a href="#">삭제하기</a> 
 								</div>
 							</div>
-						</c:if>
-						
-						<div id="galleryContentPageCommentAlarm">
-							<img id="commentIcon" class="galleryContentPageImage" src="<c:url value='/image/comment.png' />"> 댓글
-						</div>
-
-						<div id="galleryContentPageCommentBox">
-							<textarea id="galleryContentPageComment" rows="7" cols="100"></textarea>
-							<input type="hidden" id="memId" value="user123"> 
-							<input type="hidden" id="memNick" value="UserNick123">
-						</div>
-
-						<div id="galleryContentPageCommentButtonBox">
-							<input type="file" id="addImgBtn">
-							<div class="galleryContentPageCommentBtn" id="galleryContentPageCommentImageButton">이미지 추가</div>
-							<input type="button" class="galleryContentPageCommentBtn" id="addCommentBtn" value="작성하기">
-						</div>
-
-						<div class="commentResult">							
+						</c:if>						
 						</div>
 					</div>
 				</div>

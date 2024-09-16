@@ -7,8 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>마이페이지</title>
-    <script src="<c:url value='/js/jquery-3.7.1.min.js'/>"></script>
-    <script src="<c:url value='/js/imageFileUpload.js'/>"></script>
+    <script src="<c:url value='/js/jquery-3.7.1.min.js'/>"></script>    
     <script src="<c:url value='/js/myPageForm.js'/>"></script>
     <script src="<c:url value='/js/getGymPosition.js'/>"></script>
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -28,7 +27,7 @@
                         <div id="myPageInfoBox">
                             <input type="file" id="fileInput" name="profileImage">
                             <div id="myPageImageBox">
-                                <img id="memImg" src="<c:url value='/images/${vo.memImgNo}' />">
+                                <img id="memImg" src="<c:url value='/images/${vo.memImgNo}' />" data-Img="${vo.memImgNo}">
                                 <img id="memImgModify" src="<c:url value='/image/myPageImageModify.png' />">
                             </div>
                             <div id="myPageInfoNick">${vo.memNick}</div>

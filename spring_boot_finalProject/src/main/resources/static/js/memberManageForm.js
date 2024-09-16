@@ -295,13 +295,10 @@ $(document).ready(function () {
               loadAwardContents(getChildNo, 0);
               
               $('#memberManageRightArrow').attr("data-num",0);
-              $('#memberManageLeftArrow').attr("data-num",0);
-              //$('#memberManageLeftArrow').css("visibility", "hidden");
-              //$('#memberManageRightArrow').css("visibility", "visible");
+              $('#memberManageLeftArrow').attr("data-num",0);             
               displayArrow(0);
            }
-       });
-    
+       });    
     }
     
     function displayArrow(page){

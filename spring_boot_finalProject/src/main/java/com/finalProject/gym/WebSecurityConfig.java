@@ -34,7 +34,7 @@ public class WebSecurityConfig implements org.springframework.web.servlet.config
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/images/**")
-		//.addResourceLocations("file:///C:/springWorkspace/upload/");
-		.addResourceLocations("file:///usr/local/project/upload/");
+		.addResourceLocations("file:///C:/springWorkspace/upload/");
+		//.addResourceLocations("file:///usr/local/project/upload/");
 	}
 }

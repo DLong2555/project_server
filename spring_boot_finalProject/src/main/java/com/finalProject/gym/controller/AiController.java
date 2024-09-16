@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.finalProject.gym.model.GreenEyeVO;
 import com.finalProject.gym.model.GymVO;
 import com.finalProject.gym.model.MemberVO;
+import com.finalProject.gym.service.ChatbotService;
+import com.finalProject.gym.service.GreenEyeService;
 import com.finalProject.gym.service.GymService;
 import com.finalProject.gym.service.MemberService;
 
@@ -19,11 +22,21 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AiController {
-	@Autowired
-	MemberService memService;
+
+	private MemberService memService;
+	private GymService gymService;
+	private ChatbotService chatService;
+	private GreenEyeService greenService;
 
 	@Autowired
-	GymService gymService;
+	public AiController(MemberService memService, GymService gymService, 
+			            GreenEyeService greenService, ChatbotService chatService) {
+
+		this.memService = memService;
+		this.gymService = gymService;
+		this.greenService = greenService;
+		this.chatService = chatService;
+	}
 
 	// 지도 폼
 	@RequestMapping("/ai/map")
@@ -38,14 +51,13 @@ public class AiController {
 		String address = "";
 		String userChk = "";
 		String nowUser = "";
-		
-		if(vo.getGymNo() == null) userChk = "user";
+
+		if (vo.getGymNo() == null)
+			userChk = "user";
 		else {
 			userChk = "manager";
 			nowUser = vo.getGymName();
 		}
-		
-		
 
 		pointX = Double.parseDouble(vo.getPointX());
 		pointY = Double.parseDouble(vo.getPointY());
@@ -108,4 +120,18 @@ public class AiController {
 
 		return gymNameSearchResult;
 	}
+
+	// 챗봇 창(폼) 열기
+	@RequestMapping("/ai/chatbotForm")
+	public String chatbotForm() {
+		return "ai/chatForm";
+	}
+
+	@ResponseBody
+	@RequestMapping("/ai/chatbot")
+	public String chatbot(@RequestParam("message") String message) {
+		String result = chatService.main(message);
+		System.out.println(message);
+		return result;
+	}	
 }

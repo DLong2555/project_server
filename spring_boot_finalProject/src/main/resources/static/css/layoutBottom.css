@@ -110,3 +110,27 @@
 	height: 10px;
 	background-color: #e2e5e9;
 }
+
+#headerBottom #bottomChatBotChatBox {
+	position: fixed;
+	bottom: 130px;
+	right: 40px;
+
+}
+
+#headerBottom #bottomChatBotBtn {
+	position: fixed;
+	border-radius: 100%;
+	border : 1px solid #c3c3c3;
+	background-color : white;
+	bottom : 40px;
+	right: 40px;
+	padding: 10px;
+	padding-bottom: 5px;
+	cursor: pointer;
+}
+
+#headerBottom .bottomChatBot {
+	width: 40px;
+	height: 40px;
+}

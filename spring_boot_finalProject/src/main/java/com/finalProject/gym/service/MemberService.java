@@ -151,6 +151,11 @@ public class MemberService implements IMemberService {
 	public ArrayList<Integer> getChildNoJoinEvent(int eventNo) {
 		return dao.getChildNoJoinEvent(eventNo);
 	}
+
+	@Override
+	public ArrayList<ChildVO> getMyChildAward(String memId) {
+		return dao.getMyChildAward(memId);
+	}
 	
 	
 	

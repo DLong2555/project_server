@@ -41,6 +41,12 @@
 	justify-content: center;
 }
 
+#memberAwardForm .memberAwardMemberContents {
+	display: flex;
+	align-items: center;
+		margin-bottom: 15px;
+}
+
 /* 수상내역 왼쪽 박스 */
 #memberAwardForm #memberAwardLeftBox {
 	display: flex;
@@ -174,7 +180,7 @@
 	width: 650px;
 	height: 45px;
 	padding: 5px 20px;
-	margin: 10px 20px;
+	margin: 5px 20px;
 	border-radius: 1500px;
 	border: 1px solid #a3a3a3;
 	font-weight: 500;
@@ -223,7 +229,7 @@
 
 #memberAwardForm #memberAwardChooseBox {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	align-items:center;
 	margin: 20px 0 10px 0;
 }
@@ -233,8 +239,16 @@
 	height: 35px;
 	margin-right: 20px;
 	margin-left: 3px;
+
+}
+
+#memberAwardForm #memberAwardCompetitionTitle {
+	font-size: 20px;
+	font-weight:600;
+	margin-left: 5px;
 	margin-bottom: 15px;
 }
+
 
 #memberAwardForm #memberAwardCompetitionInfo {
 		display: flex;

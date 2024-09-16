@@ -27,4 +27,5 @@ public interface IMemberDAO {
 	public void deletAward(int awardNo); // 수상내역 삭제
 	public void addAwardContents(AwardVO awardvo); //수상내역 추가
 	public ArrayList<Integer> getChildNoJoinEvent(int eventNo); //이벤트 참여 아이 번호 가져오기
+	public ArrayList<ChildVO> getMyChildAward(String memId); //내 아이 수상내역 가져오기
 }

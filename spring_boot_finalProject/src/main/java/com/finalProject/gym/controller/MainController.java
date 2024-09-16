@@ -26,9 +26,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.finalProject.gym.model.AwardVO;
 import com.finalProject.gym.model.ChildVO;
 import com.finalProject.gym.model.EventVO;
+import com.finalProject.gym.model.GreenEyeVO;
 import com.finalProject.gym.model.MemberVO;
 import com.finalProject.gym.service.ChildService;
 import com.finalProject.gym.service.GalleryService;
+import com.finalProject.gym.service.GreenEyeService;
 import com.finalProject.gym.service.GymService;
 import com.finalProject.gym.service.MemberService;
 
@@ -37,17 +39,19 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainController {
 	private MemberService memService;
-	private GymService gymService;
+	//private GymService gymService;
 	private ChildService childService;
 	private GalleryService gallService;
+	private GreenEyeService greenService;
 	
 	@Autowired
 	public MainController(MemberService memService, ChildService childService,
-						  GymService gymService, GalleryService gallService) {
+						  GalleryService gallService, GreenEyeService greenService) {
 		this.memService = memService;
 		this.childService = childService;
-		this.gymService = gymService;
+		//this.gymService = gymService;
 		this.gallService = gallService;
+		this.greenService = greenService;
 	}
 	
 
@@ -309,8 +313,11 @@ public class MainController {
 		String memId = (String) session.getAttribute("sid");
 		MemberVO vo = memService.getMemData(memId);
 		
-		model.addAttribute("vo", vo);
+		ArrayList<ChildVO> childList = childService.getMyChildren(memId);
 		
+		model.addAttribute("childList",childList);
+		model.addAttribute("vo", vo);
+
 		return "member/memberAwardForm";
 	}
 
@@ -403,25 +410,34 @@ public class MainController {
 	// 이미지 업로드 및 저장
 	@ResponseBody
 	@RequestMapping("/member/imageFileUpload")
-	public void imageFileUpload(@RequestParam("uploadFile") MultipartFile file, HttpSession session)
+	public String imageFileUpload(@RequestParam("uploadFile") MultipartFile file, HttpSession session)
 			throws IOException {
-		//String uploadPath = "C:/springWorkspace/upload/";
+		String uploadPath = "C:/springWorkspace/upload/";
 		// 이미지 업로드 서버 경로
-		String uploadPath = "/usr/local/project/upload/";
+		//String uploadPath = "/usr/local/project/upload/";
 
-		String originalFileName = file.getOriginalFilename();
+		String originalFileName = file.getOriginalFilename();				
+		
+		String filePath = uploadPath + originalFileName;
+		GreenEyeVO green = greenService.greenEye(filePath);
+		
+		if(green.getPorn() < 0.5) {
+			File sendFile = new File(uploadPath + originalFileName);
+	
+			file.transferTo(sendFile);
+			
+			// db에 저장
+			String memId = (String) session.getAttribute("sid");
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("memId", memId);
+			map.put("fileName", originalFileName);
 
-		File sendFile = new File(uploadPath + originalFileName);
-
-		file.transferTo(sendFile);
-
-		// db에 저장
-		String memId = (String) session.getAttribute("sid");
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("memId", memId);
-		map.put("fileName", originalFileName);
-
-		memService.updateMemImgNo(map);
+			memService.updateMemImgNo(map);
+			
+			return "success";
+		}
+		
+		return "fail";
 	}
 
 	// 업로드
@@ -429,8 +445,8 @@ public class MainController {
 	@RequestMapping("/member/imageFileUploadOnly")
 	public void imageFileUploadOnly(@RequestParam("uploadFile") MultipartFile file, HttpSession session)
 			throws IOException {
-		//String uploadPath = "C:/springWorkspace/upload/";
-		String uploadPath = "/usr/local/project/upload/";
+		String uploadPath = "C:/springWorkspace/upload/";
+		//String uploadPath = "/usr/local/project/upload/";
 
 		String originalFileName = file.getOriginalFilename();
 
@@ -444,8 +460,8 @@ public class MainController {
 	@RequestMapping("/member/imageFileUploadMulti")
 	public ArrayList<String> imageFileUploadMulti(@RequestParam("uploadFile") MultipartFile[] files, HttpSession session)
 			throws IOException {
-		//String uploadPath = "C:/springWorkspace/upload/";
-		String uploadPath = "/usr/local/project/upload/";
+		String uploadPath = "C:/springWorkspace/upload/";
+		//String uploadPath = "/usr/local/project/upload/";
 		
 		ArrayList<String> fileNameList = new ArrayList<String>();
 		

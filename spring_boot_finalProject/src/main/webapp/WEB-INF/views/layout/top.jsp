@@ -61,7 +61,7 @@
 	                    </div>
 	                    <div class="topSubMenuEach">
 	                        <a href="<c:url value='/member/loginForm' />">갤러리</a>
-	                    </div>
+	                    </div>	                    
 	                </div>
 	            </div>
 	
@@ -161,7 +161,7 @@
 	                    </div>                 
 	                    <div class="topSubMenuEach">
 	                        <a href="<c:url value='/gallery/gallery' />">갤러리</a>
-	                    </div>
+	                    </div>	                    
 	                </div>
 	            </div>
 	

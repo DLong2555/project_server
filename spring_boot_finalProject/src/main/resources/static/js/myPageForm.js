@@ -5,6 +5,7 @@ $(document).ready(function() {
     var nickChk = false;
     var emailChk = false;
     var text = "";
+    var imgName = $('#memImg').attr("data-img");
     
     $(document).on('keydown', function (e) {
         if (e.keyCode == 13) return false; // Disable form submission on Enter key
@@ -16,35 +17,50 @@ $(document).ready(function() {
     });
 
    // 파일 선택 시 이미지 미리보기
-    $('#fileInput').on('change', function() {
-        const input = this;
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            
-            let fileName = input.files[0].name;
-         
-            reader.onload = function(e) {
-                $('#memImg').attr('src', e.target.result);
-                $('#myImage').attr('src', e.target.result);
-                $('#myImageUser').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-            
-            // 파일을 서버에 전송하기 위한 FormData 객체 생성
-           let formData = new FormData();
-           formData.append('uploadFile', input.files[0]); // 'uploadFile'은 서버의 @RequestParam과 매칭되는 이름
-            
-            $.ajax({
-                type:"post",
-                url:"/member/imageFileUpload",
-                enctype:"multipart/form-data",
-                processData:false,
-                contentType:false,
-                data: formData
-             });
-        }
-    });
+    $('#fileInput').on('change', function(e) {
+	    const input = this;        
+	    
+	    if (input.files && input.files[0]) {	        
+	        
+	        // 파일을 서버에 전송하기 위한 FormData 객체 생성
+	        let formData = new FormData();
+	        formData.append('uploadFile', input.files[0]); // 'uploadFile'은 서버의 @RequestParam과 매칭되는 이름
+	        
+	        // 서버에 먼저 요청을 보내고, 성공하면 이미지 업데이트
+	        $.ajax({
+	            type: "post",
+	            url: "/member/imageFileUpload",
+	            enctype: "multipart/form-data",
+	            processData: false,
+	            contentType: false,
+	            data: formData,
+	            success: function(result) {
+	                if(result === 'fail'){
+	                    // 실패 시 이미지 업데이트 하지 않음
+	                    alert('선정적 이미지 입니다.');
+	                    input.value = ''; // 파일 입력 필드 초기화
+	                    return;
+	                } else {
+	                    const reader = new FileReader();
+				        
+				        let fileName = input.files[0].name;
+				     
+				        reader.onload = function(e) {
+				            $('#memImg').attr('src', e.target.result);
+				            $('#myImage').attr('src', e.target.result);
+				            $('#myImageUser').attr('src', e.target.result);
+				        }
+				
+				        reader.readAsDataURL(input.files[0]);
+	                }
+	            },
+	            error: function() {
+	                alert('서버 오류 발생');
+	                input.value = ''; // 서버 오류 시 파일 입력 필드 초기화
+	            }
+	         });
+	    }
+	});
 
     // Menu hover effect
     $(".myPageMenuEach, #memDeleteAccount").hover(
