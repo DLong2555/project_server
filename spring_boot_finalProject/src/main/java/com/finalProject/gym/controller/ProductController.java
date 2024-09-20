@@ -118,16 +118,16 @@ public class ProductController {
 		ProductVO pvo = prdService.getProductDetail(prdNo);
 
 		// 상품 게시판
-		ArrayList<PrdBoardVO> prdBoardList = prdService.getPrdBoard(prdNo, ctg, page, pageSize);
-		int totalProducts = prdService.getTotalPrdBoardCount(ctg, prdNo);
-		int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+		//ArrayList<PrdBoardVO> prdBoardList = prdService.getPrdBoard(prdNo, ctg, page, pageSize);
+		//int totalProducts = prdService.getTotalPrdBoardCount(ctg, prdNo);
+		//int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd HH:mm", Locale.KOREAN);
 
 		LocalDate today = LocalDate.now();
 
 		String creatAt = "";
-		for (PrdBoardVO prdboard : prdBoardList) {
+		/*for (PrdBoardVO prdboard : prdBoardList) {
 			Date writeDate = prdboard.getCreatedAt(); // Date 객체로 가정
 			LocalDate writeLocalDate = convertDateToLocalDate(writeDate);
 			String formattedWriteDate = formatter.format(writeDate);
@@ -139,12 +139,12 @@ public class ProductController {
 				creatAt = formattedWriteDate.substring(3, 8);
 				prdboard.setFormatDate(creatAt);
 			}
-		}
+		}*/
 
 		model.addAttribute("prdNo", prdNo);
 		model.addAttribute("ctg", ctg);
-		model.addAttribute("prdBoardList", prdBoardList);
-		model.addAttribute("totalPages", totalPages);
+		//model.addAttribute("prdBoardList", prdBoardList);
+		//model.addAttribute("totalPages", totalPages);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("pageSize", pageSize);
 
