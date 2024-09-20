@@ -2,6 +2,9 @@ package com.finalProject.gym.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -38,15 +41,52 @@ public class GalleryController {
 	// 갤러리
 	@RequestMapping("/gallery/gallery")
 	public String gallery(@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "pageSize", defaultValue = "9") int pageSize, HttpSession session, Model model) {
+			@RequestParam(value = "pageSize", defaultValue = "9") int pageSize,
+			@RequestParam(value = "gymName", required = false) String gymName, HttpSession session, Model model) {
 
 		String memId = (String) session.getAttribute("sid");
 		String gymNo = (String) session.getAttribute("sidGymNo");
-
+	
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
 
-		if (gymNo == null) {
-			ArrayList<String> gymNameList = childService.getMyGymName(memId);
+		if (gymName == null) {
+			if (gymNo == null) {
+				ArrayList<String> gymNameList = childService.getMyGymName(memId);
+				ArrayList<GalleryVO> gallList = gallService.getGallContentsWhenMem(gymNameList, page, pageSize);
+				int pages = gallService.getGallTotalPage(gymNameList);
+				int totalPages = (int) Math.ceil((double) pages / pageSize);
+
+				for (GalleryVO gall : gallList) {
+					String deadLine = formatter.format(gall.getGalleryDate());
+
+					gall.setRegistDate(deadLine);
+				}
+
+				model.addAttribute("gallList", gallList);
+				model.addAttribute("totalPage", totalPages);
+				model.addAttribute("pageSize", pageSize);
+				model.addAttribute("currentPage", page);
+			} else {
+				ArrayList<GalleryVO> gallList = gallService.getGallContentsWhenAdmin(memId, page, pageSize);
+				int pages = gallService.getGallTotalPageWhenAdmin(memId);
+				int totalPages = (int) Math.ceil((double) pages / pageSize);
+
+				for (GalleryVO gall : gallList) {
+					String deadLine = formatter.format(gall.getGalleryDate());
+
+					gall.setRegistDate(deadLine);
+				}
+
+				model.addAttribute("gallList", gallList);
+				model.addAttribute("totalPage", totalPages);
+				model.addAttribute("pageSize", pageSize);
+				model.addAttribute("gymNo", gymNo);
+				model.addAttribute("currentPage", page);
+			}
+		}else {
+			ArrayList<String> gymNameList = new ArrayList<String>();
+			gymNameList.add(gymName);
+			
 			ArrayList<GalleryVO> gallList = gallService.getGallContentsWhenMem(gymNameList, page, pageSize);
 			int pages = gallService.getGallTotalPage(gymNameList);
 			int totalPages = (int) Math.ceil((double) pages / pageSize);
@@ -56,25 +96,12 @@ public class GalleryController {
 
 				gall.setRegistDate(deadLine);
 			}
-
+			
+			model.addAttribute("gymName", gymName);
 			model.addAttribute("gallList", gallList);
 			model.addAttribute("totalPage", totalPages);
 			model.addAttribute("pageSize", pageSize);
-		} else {
-			ArrayList<GalleryVO> gallList = gallService.getGallContentsWhenAdmin(memId, page, pageSize);
-			int pages = gallService.getEventTotalPageWhenAdmin(memId);
-			int totalPages = (int) Math.ceil((double) pages / pageSize);
-
-			for (GalleryVO gall : gallList) {
-				String deadLine = formatter.format(gall.getGalleryDate());
-
-				gall.setRegistDate(deadLine);
-			}
-
-			model.addAttribute("gallList", gallList);
-			model.addAttribute("totalPage", totalPages);
-			model.addAttribute("pageSize", pageSize);
-			model.addAttribute("gymNo", gymNo);
+			model.addAttribute("currentPage", page);
 		}
 
 		return "gallery/gallery";
@@ -150,8 +177,7 @@ public class GalleryController {
 	// 갤러리 수정
 	@ResponseBody
 	@RequestMapping("/gallery/updateGallery")
-	public void updateGallContent(@ModelAttribute GalleryVO gall)
-			throws ParseException {
+	public void updateGallContent(@ModelAttribute GalleryVO gall) throws ParseException {
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
 		Date date = formatter.parse(gall.getRegistDate());
@@ -170,6 +196,8 @@ public class GalleryController {
 		String gymNo = (String) session.getAttribute("sidGymNo");
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
+		DateTimeFormatter calFm = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate today = LocalDate.now();
 
 		if (gymNo == null) {
 			ArrayList<String> gymNameList = childService.getMyGymName(memId);
@@ -179,6 +207,12 @@ public class GalleryController {
 
 			for (EventVO event : eventList) {
 				String deadLine = formatter.format(event.getEventDeadLine());
+				LocalDate line = LocalDate.parse(deadLine, calFm);
+				if (today.isAfter(line)) {
+					event.setDeadLineChk("true");
+				} else {
+					event.setDeadLineChk("false");
+				}
 
 				event.setDeadLine(deadLine);
 			}
@@ -186,6 +220,7 @@ public class GalleryController {
 			model.addAttribute("eventList", eventList);
 			model.addAttribute("totalPage", totalPages);
 			model.addAttribute("pageSize", pageSize);
+			model.addAttribute("currentPage", page);
 		} else {
 			ArrayList<EventVO> eventList = gallService.getEventContentsWhenAdmin(memId, page, pageSize);
 			int pages = gallService.getEventTotalPageWhenAdmin(memId);
@@ -201,6 +236,7 @@ public class GalleryController {
 			model.addAttribute("totalPage", totalPages);
 			model.addAttribute("pageSize", pageSize);
 			model.addAttribute("gymNo", gymNo);
+			model.addAttribute("currentPage", page);
 		}
 
 		return "gallery/eventBoardForm";
@@ -229,17 +265,33 @@ public class GalleryController {
 
 	// 특수활동 상세 페이지
 	@RequestMapping("/gallery/eventBoardContentPage")
-	public String evnetBoardContentPage(@RequestParam(value = "eventNo", required = false) String no, Model model) {
-
+	public String evnetBoardContentPage(@RequestParam(value = "eventNo", required = false) String no, Model model,
+			HttpSession session) {
+		String gymNo = (String) session.getAttribute("sidGymNo");
 		if (no != null) {
 			int eventNo = Integer.parseInt(no);
 
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일(E) hh시 mm분 ss초", Locale.KOREAN);
-			SimpleDateFormat DeadLineformatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E) HH시 mm분 ss초", Locale.KOREAN);
+			DateTimeFormatter deadlineFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.KOREAN);
+
+			LocalDate today = LocalDate.now();
 
 			EventVO event = gallService.getEventDetailContent(eventNo);
-			String createdAt = formatter.format(event.getEventDate());
-			String deadLine = DeadLineformatter.format(event.getEventDeadLine());
+
+			String createdAt = event.getEventDate().toInstant().atZone(ZoneId.systemDefault()).format(formatter);
+
+			LocalDate deadLineDate = event.getEventDeadLine().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			String deadLine = deadLineDate.format(deadlineFormatter);
+
+			if (today.isAfter(deadLineDate)) {
+				event.setDeadLineChk("end");
+			} else {
+				if (gymNo != null) {
+					event.setDeadLineChk("end");
+				} else {
+					event.setDeadLineChk("left");
+				}
+			}
 
 			event.setCreatedAt(createdAt);
 			event.setDeadLine(deadLine);

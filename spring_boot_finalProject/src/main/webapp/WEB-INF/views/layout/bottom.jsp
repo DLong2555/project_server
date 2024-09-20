@@ -11,22 +11,26 @@
 	                    <div class="bottomMenuTitle noto-sans-kr">기능</div>
 	                    <ul class="bottomMenuContents noto-sans-kr">
 	                        <li><a href="<c:url value='/ai/map' />">체육관 정보</a></li>
-	                        <li><a href="<c:url value='/gym/joinAndPayGym' />">회비 납부</a></li>
-	                        <li><a href="#">특수활동 납부</a></li>
-	                        <li><a href="#">심사 납부</a></li>
+	                        <c:if test="${empty sessionScope.sidGymNo }">
+	                        	<li><a href="<c:url value='/gym/joinAndPayGym?ctg=회비' />">회비 납부</a></li>
+	                        </c:if>
+
 	                    </ul>
 	                </div>
 	                <div class="bottomMenuEachBox">
 	                    <div class="bottomMenuTitle noto-sans-kr">상품</div>
 	                    <ul class="bottomMenuContents noto-sans-kr">
-	                        <li><a href="#">도복 및 띠</a></li>
-	                        <li><a href="#">쌍절곤</a></li>
+	                        <li><a href="#">전체 상품</a></li>
+	                        <c:if test="${empty sessionScope.sidGymNo }">
+	                        	<li><a href="<c:url value='/prd/prdCartForm' />">장바구니</a></li>
+	                        	<li><a href="<c:url value='/prd/orderHistoryForm' />">주문내역</a></li>
+	                        </c:if>
 	                    </ul>
 	                </div>
 	                <div class="bottomMenuEachBox">
-	                    <div class="bottomMenuTitle noto-sans-kr">특수활동</div>
+	                    <div class="bottomMenuTitle noto-sans-kr">활동</div>
 	                    <ul class="bottomMenuContents noto-sans-kr">
-	                        <li><a href="#">공고</a></li>
+	                        <li><a href="#">특수활동 공고</a></li>
 	                        <li><a href="#">갤러리</a></li>
 	                    </ul>
 	                </div>
@@ -37,6 +41,7 @@
 	                        <li><a href="<c:url value='/board?ctg=문의' />">문의사항</a></li>
 	                        <li><a href="<c:url value='/board?ctg=중고' />">중고거래</a></li>
 	                        <li><a href="<c:url value='/board?ctg=자유' />">자유게시판</a></li>
+	                         <li><a href="<c:url value='/board?ctg=자유' />">내 글</a></li>
 	                    </ul>
 	                </div>
 	            </div>
@@ -85,21 +90,20 @@
 	                    <ul class="bottomMenuContents noto-sans-kr">
 	                        <li><a href="<c:url value='/member/loginChoose' />">체육관 정보</a></li>
 	                        <li><a href="<c:url value='/member/loginChoose' />">회비 납부</a></li>
-	                        <li><a href="<c:url value='/member/loginChoose' />">특수활동 납부</a></li>
-	                        <li><a href="<c:url value='/member/loginChoose' />">심사 납부</a></li>
 	                    </ul>
 	                </div>
 	                <div class="bottomMenuEachBox">
 	                    <div class="bottomMenuTitle noto-sans-kr">상품</div>
 	                    <ul class="bottomMenuContents noto-sans-kr">
-	                        <li><a href="<c:url value='/member/loginChoose' />">도복 및 띠</a></li>
-	                        <li><a href="<c:url value='/member/loginChoose' />">쌍절곤</a></li>
+	                        <li><a href="<c:url value='/member/loginChoose' />">전체 상품</a></li>
+	                        <li><a href="<c:url value='/member/loginChoose' />">장바구니</a></li>
+	                        <li><a href="<c:url value='/member/loginChoose' />">주문내역</a></li>
 	                    </ul>
 	                </div>
 	                <div class="bottomMenuEachBox">
-	                    <div class="bottomMenuTitle noto-sans-kr">특수활동</div>
+	                    <div class="bottomMenuTitle noto-sans-kr">활동</div>
 	                    <ul class="bottomMenuContents noto-sans-kr">
-	                        <li><a href="<c:url value='/member/loginChoose' />">공고</a></li>
+	                        <li><a href="<c:url value='/member/loginChoose' />">특수활동 공고</a></li>
 	                        <li><a href="<c:url value='/member/loginChoose' />">갤러리</a></li>
 	                    </ul>
 	                </div>
@@ -110,6 +114,7 @@
 	                        <li><a href="<c:url value='/member/loginChoose' />">문의사항</a></li>
 	                        <li><a href="<c:url value='/member/loginChoose' />">중고거래</a></li>
 	                        <li><a href="<c:url value='/member/loginChoose' />">자유게시판</a></li>
+	                        <li><a href="<c:url value='/member/loginChoose' />">내글</a></li>
 	                    </ul>
 	                </div>
 	            </div>

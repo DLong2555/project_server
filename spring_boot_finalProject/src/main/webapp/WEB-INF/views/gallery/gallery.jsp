@@ -62,7 +62,7 @@
 					</div>
 					<div id="galleryViewNumberBox">
 						<c:forEach var="i" begin="1" end="${totalPage}">
-							<a href="?ctg=${ctg}&page=${i}&pageSize=${pageSize}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+							<a href="?page=${i}&pageSize=${pageSize}&gymName=${gymName != null ? gymName : ''}" class="${i == currentPage ? 'active' : ''}">${i}</a>							
 						</c:forEach>
 					</div>
 					<div class="galleryViewPaginationMove">

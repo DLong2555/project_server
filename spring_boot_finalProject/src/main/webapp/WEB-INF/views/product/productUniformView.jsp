@@ -21,7 +21,7 @@
                     <div id="productUniformViewSubTitle">편리한 쇼핑, 다양한 상품이 한 자리에</div>
                 </div>
                 
-                <c:set var="categories" value="${fn:split('도복 및 띠, 쌍절곤', ',')}" />
+                <c:set var="categories" value="${fn:split('도복 및 띠,아우터', ',')}" />
                 <c:set var="selectedCategory" value="${ctg}" /> <!-- 임시로 카테고리 설정 -->
                 
                 <div id="productUniformViewMenuBox">
@@ -29,8 +29,8 @@
 	                    <c:forEach items="${categories}" var="item">
 	                        <c:choose>
 	                            <c:when test="${item eq selectedCategory}">
-	                                <div class="productUniformViewMenuEach">
-	                                    <a href="/prd/prdForm?ctg=${item}"  style="font-weight: 600; font-size: 21px; text-decoration: underline; text-underline-offset: 15px; text-decoration-thickness: 4px;">${item}</a>
+	                                <div class="productUniformViewMenuEach" style="font-weight: 600; font-size: 21px; text-decoration: underline; text-underline-offset: 15px; text-decoration-thickness: 4px;">
+	                                    <a href="/prd/prdForm?ctg=${item}">${item}</a>
 	                                </div>
 	                            </c:when>
 	                            <c:otherwise>
@@ -53,8 +53,9 @@
 					<c:forEach var="prd" items="${prdList}">
 						<div class="productUniformViewListRow">
 							<div class="productUniformViewImageCell">
+								<a href="/prd/productDetailForm?prdNo=${prd.prdNo}">
 								<img src="<c:url value='/images/${prd.prdImg}' />" alt="${prd.prdName}"
-									class="productUniformViewImage">
+									class="productUniformViewImage"></a>
 							</div>
 							<div class="productUniformViewTitleCell">
 								<a href="/prd/productDetailForm?prdNo=${prd.prdNo}">${prd.prdName}</a>

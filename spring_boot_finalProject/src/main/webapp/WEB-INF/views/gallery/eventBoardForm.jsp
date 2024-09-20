@@ -40,7 +40,7 @@
 							</div>
 							<a class="eventLinkA" href="<c:url value='/gallery/eventBoardContentPage?eventNo=${eventList.eventNo }' /> ">
 							<div class="eventBoardFormInfoCell">
-								<div class="eventBoardFormDescription">${eventList.eventTitle }</div>
+								<div class="eventBoardFormDescription" data-value="${eventList.deadLineChk }">${eventList.eventTitle }</div>
 								<div class="eventBoardFormDate">마감일 : <span>${eventList.deadLine }</span> 23:59 까지</div>
 							</div>
 							</a>

@@ -123,9 +123,11 @@
 	                    <div class="topSubMenuEach">
 	                        <a href="<c:url value='/ai/map' />">체육관 정보</a>
 	                    </div>
+	                    <c:if test="${empty sessionScope.sidGymNo }">
 	                    <div class="topSubMenuEach">
 	                        <a href="<c:url value='/gym/joinAndPayGym?ctg=회비' />">회비 납부</a>
 	                    </div>
+	                    </c:if>
 	                </div>
 	            </div>
 	
@@ -137,15 +139,16 @@
 	                </div>
 	                <div class="topSubMenu">
 	                    <div class="topSubMenuEach">
-	                        <a href="<c:url value='/prd/prdForm?ctg=도복 및 띠' />">도복 및 띠</a>
+	                        <a href="<c:url value='/prd/prdForm?ctg=도복 및 띠' />">상품</a>
 	                    </div>
-	                    <div class="topSubMenuEach">
-	                        <a href="<c:url value='/prd/prdCartForm' />">장바구니</a>
-	                    </div>
-	                    <div class="topSubMenuEach">
-	                        <a href="<c:url value='/prd/orderHistoryForm' />">주문내역</a>
-	                    </div>
-
+	                    <c:if test="${empty sessionScope.sidGymNo }">
+		                    <div class="topSubMenuEach">
+		                        <a href="<c:url value='/prd/prdCartForm' />">장바구니</a>
+		                    </div>
+		                    <div class="topSubMenuEach">
+		                        <a href="<c:url value='/prd/orderHistoryForm' />">주문내역</a>
+		                    </div>
+						</c:if>
 	                </div>
 	            </div>
 	

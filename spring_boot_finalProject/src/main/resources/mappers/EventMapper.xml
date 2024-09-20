@@ -19,7 +19,7 @@
 		<foreach item="name" collection="gymNameList" open="(" separator="," close=")">
 			#{name}
 		</foreach>
-		ORDER BY eventDate DESC, m.gymName
+		ORDER BY eventDeadLine DESC, m.gymName
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
 	

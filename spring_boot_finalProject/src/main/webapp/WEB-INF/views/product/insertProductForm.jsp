@@ -29,7 +29,7 @@
 							</div>
 							<div class="insertProductPageSubSelect">
 								<div class="insertProductPageSubSelectEach" data-value="도복 및 띠">도복 및 띠</div>
-								<div class="insertProductPageSubSelectEach" data-value="쌍절곤">쌍절곤</div>
+								<div class="insertProductPageSubSelectEach" data-value="아우터">아우터</div>
 							</div>
 							<input type="text" id="prdName" name="prdName" required>
 						</div>

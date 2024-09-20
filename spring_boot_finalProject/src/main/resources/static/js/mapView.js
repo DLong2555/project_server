@@ -66,6 +66,8 @@ $(document).ready(function () {
 				$("#mapGymAddressText").text(result["memAddress1"]);
 				$("#mapViewGymLink").text(selectedGymName + " 갤러리");
 
+				 $("#mapViewLink a").attr("href", "/gallery/gallery?gymName=" + selectedGymName);
+				 
 				var gymPointX = result["pointX"];
 				var gymPointY = result["pointY"];
 				var gymAddress = result["memAddress1"];
@@ -213,4 +215,6 @@ $(document).ready(function () {
 			}
 		});
 	}
+	
+	
 });

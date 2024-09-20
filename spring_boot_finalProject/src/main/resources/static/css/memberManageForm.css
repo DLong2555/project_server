@@ -297,7 +297,7 @@
 }
 
 #memberManageForm .memberManageSubSelect {
-	width: 120px;
+	width: 180px;
 	display : none;
 	flex-direction: column;
 	border : 1px solid whitesmoke;
@@ -332,7 +332,7 @@
 	background-color: #f5f5f5;
 	font-size:15px;
 	font-weight:500;
-	width: 90px;
+	width: 150px;
 }
 
 #memberManageForm .memberManageDown {

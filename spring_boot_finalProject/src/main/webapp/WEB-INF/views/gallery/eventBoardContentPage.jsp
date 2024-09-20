@@ -75,17 +75,13 @@
 								<div>금액 : <span id="eventPrice">${event.eventPrice }</span>원	</div>
 							</div>
 						</div>
-
+						<c:if test="${event.deadLineChk eq 'left' }">
 						<div id="eventBoardContentPageCommentButtonBox">
-							<div id="eventBoardContentPagePayButton">
-								<c:if test="${empty childNo }">
-									<a href="/gym/joinAndPayGym?ctg=특수&eventNo=${event.eventNo }">결제하기</a>
-								</c:if>
-								<c:if test="${not empty childNo }">
-									<a href="/gym/joinAndPayGym?ctg=특수&eventNo=${event.eventNo }&childNo=${childNo}">결제하기</a>									
-								</c:if>								
+							<div id="eventBoardContentPagePayButton">								
+								<a href="/gym/joinAndPayGym?ctg=특수&eventNo=${event.eventNo }">결제하기</a>																						
 							</div>
 						</div>
+						</c:if>
 					</div>
 				</div>
 			</div>

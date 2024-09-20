@@ -56,11 +56,13 @@ public class ProductController {
 	@GetMapping("/prd/prdForm")
 	public String productForm(@RequestParam(value = "ctg", required = false) String ctg,
 			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "12") int pageSize, Model model) {
-
+		
+		ctg = ctg.trim();		
+		
 		ArrayList<ProductVO> prdList = prdService.getCtgProduct(ctg, page, pageSize);
 		int totalProducts = prdService.getTotalProductCount(ctg);
 		int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
-
+		
 		model.addAttribute("ctg", ctg);
 		model.addAttribute("prdList", prdList);
 		model.addAttribute("totalPages", totalPages);

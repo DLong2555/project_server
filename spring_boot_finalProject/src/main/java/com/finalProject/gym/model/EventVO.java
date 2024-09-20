@@ -21,6 +21,7 @@ public class EventVO {
 	private String createdAt;
 	private String gymName;
 	private String memName;
+	private String deadLineChk;
 	
 	public int getEventNo() {
 		return eventNo;
@@ -99,6 +100,12 @@ public class EventVO {
 	}
 	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
+	}
+	public String getDeadLineChk() {
+		return deadLineChk;
+	}
+	public void setDeadLineChk(String deadLineChk) {
+		this.deadLineChk = deadLineChk;
 	}
 	
 	
