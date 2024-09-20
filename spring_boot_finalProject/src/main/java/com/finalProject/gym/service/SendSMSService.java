@@ -3,6 +3,9 @@ package com.finalProject.gym.service;
 import java.util.HashMap;
 import java.util.Random;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import net.nurigo.java_sdk.api.Message;
@@ -10,11 +13,16 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Service
 public class SendSMSService {
-
+	
+	@Autowired
+    Environment env;
+	
 	public String PhoneNumberCheck(String to) throws CoolsmsException {
 
-		String api_key = "NCSJXU18PQMKNJUX";
-		String api_secret = "NFPPCOBUDOA8E61VD1B5GN2EJFE3ZXOR";
+		String api_key = env.getProperty("coolsms.api_key");    
+		String api_secret = env.getProperty("coolsms.api_secret");
+		String phoneNumber = env.getProperty("coolsms.from_number");				
+		
 		Message coolsms = new Message(api_key, api_secret);
 
 		Random rand = new Random();
@@ -26,7 +34,7 @@ public class SendSMSService {
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", to); // 수신전화번호 (ajax로 view 화면에서 받아온 값으로 넘김)
-		params.put("from", "01054293187"); // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+		params.put("from", phoneNumber); // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
 		params.put("type", "sms");
 		params.put("text", "인증번호는 [" + numStr + "] 입니다.");
 

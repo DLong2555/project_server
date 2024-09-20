@@ -13,7 +13,7 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 
 @Controller
-public class SendSMSController {
+public class SendSMSController {		
 	
 	private final SendSMSService sendSMSService;
 
