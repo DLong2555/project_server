@@ -66,7 +66,7 @@
   	<!--상품 게시판-->
   	<select id="getPrdBoard" resultMap="PrdBoardResult">
   		SELECT *
-  		FROM prdBoard
+  		FROM prdboard
   		WHERE prdBoardCtg = #{ctgId} AND prdNo = #{prdNo}
   		ORDER BY createdAt DESC
   		LIMIT #{limit} OFFSET #{offset}
@@ -75,32 +75,32 @@
   	<!--카테고리별 상품 개수 가져오기 -->
   	<select id="getTotalPrdBoardCount" resultType="int">
   		SELECT COUNT(*)
-  		FROM prdBoard
+  		FROM prdboard
   		WHERE prdBoardCtg = #{ctgId} AND prdNo = #{prdNo}
   	</select>
   	
   	<!--상품 상세 게시판 내용 가져오기-->
   	<select id="getPrdBoardContent" parameterType="int" resultMap="PrdBoardResult">
   		SELECT prdContent, memId, viewNum
-  		FROM prdBoard
+  		FROM prdboard
   		WHERE prdBoardNo = #{prdBoardNo}
   	</select>
   	
   	<!--상품 상세 게시판 글쓰기-->
   	<insert id="writeInPrdBoard" parameterType="com.finalProject.gym.model.PrdBoardVO">
-  		INSERT prdBoard (prdBoardCtg, prdTitle, prdContent, memNick, memId, prdNo)
+  		INSERT prdboard (prdBoardCtg, prdTitle, prdContent, memNick, memId, prdNo)
   		VALUES (#{prdBoardCtg}, #{prdTitle}, #{prdContent}, #{memNick}, #{memId}, #{prdNo})
   	</insert>
   	
   	<!--상품 상세 게시판 글삭제-->
   	<delete id="prdBoardDelete" parameterType="int">
   		DELETE
-  		FROM prdBoard
+  		FROM prdboard
   		WHERE prdBoardNo = #{prdBoardNo}
   	</delete>
   	
   	<update id="incrementViewCount" parameterType="int">
-  		UPDATE prdBoard
+  		UPDATE prdboard
     	SET viewNum= viewNum + 1
     	WHERE prdBoardNo = #{prdBoardNo}
   	</update>
