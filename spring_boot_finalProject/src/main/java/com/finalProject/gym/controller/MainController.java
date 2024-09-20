@@ -460,6 +460,7 @@ public class MainController {
 	@RequestMapping("/member/imageFileUploadMulti")
 	public ArrayList<String> imageFileUploadMulti(@RequestParam("uploadFile") MultipartFile[] files, HttpSession session)
 			throws IOException {
+		
 		//String uploadPath = "C:/springWorkspace/upload/";
 		String uploadPath = "/usr/local/project/upload/";
 		
