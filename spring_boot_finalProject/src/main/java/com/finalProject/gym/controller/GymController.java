@@ -55,7 +55,7 @@ public class GymController {
 		String memId = (String) session.getAttribute("sid");
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		ArrayList<ChildVO> chvoList = childService.getMyChildren(memId);
-		DateTimeFormatter calFm = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter calFm = DateTimeFormatter.ofPattern("yyyy-MM-dd");			
 		
 		if (chvoList != null && no == null) {
 			for (ChildVO vo : chvoList) {
@@ -70,9 +70,10 @@ public class GymController {
 			model.addAttribute("chvoList", chvoList);
 		}else {						
 			int eventNo = Integer.parseInt(no);
+			ArrayList<Integer> eventNoList = memService.getChildNoJoinEvent(eventNo);
+			
 			EventVO event = gallService.getEventPayInfo(eventNo);
-			ArrayList<ChildVO> childList = new ArrayList<ChildVO>();
-						
+			ArrayList<ChildVO> childList = new ArrayList<ChildVO>();			
 			
 			for(ChildVO child:chvoList) {
 				String deadLine = child.getDeadLine().substring(0, 4) + "-" + child.getDeadLine().substring(6, 8) + "-"
@@ -80,8 +81,9 @@ public class GymController {
 				LocalDate line = LocalDate.parse(deadLine, calFm);
 				LocalDate today = LocalDate.now();
 				
-				if(child.getGymName().equals(event.getGymName())) {
-					if(line.isAfter(today)) {
+				if(child.getGymName().equals(event.getGymName())) {					
+					
+					if(line.isAfter(today) || !eventNoList.contains(child.getChildNo())) {
 						childList.add(child);
 					}
 				}
