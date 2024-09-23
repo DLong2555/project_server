@@ -34,7 +34,7 @@ public class GymController {
 
 	@Autowired
 	public GymController(GymService gymService, ChildService childService, MemberService memService,
-			             GalleryService gallService) {
+			GalleryService gallService) {
 
 		this.gymService = gymService;
 		this.childService = childService;
@@ -50,13 +50,14 @@ public class GymController {
 
 	// 도장 등록 페이지
 	@RequestMapping("/gym/joinAndPayGym")
-	public String joinAndPayGym(@RequestParam(value="ctg", defaultValue = "회비") String ctg, @RequestParam(value="eventNo", required = false) String no, 
-											  @RequestParam(value="childNo", required = false) String childNo, Model model, HttpSession session) {
+	public String joinAndPayGym(@RequestParam(value = "ctg", defaultValue = "회비") String ctg,
+			@RequestParam(value = "eventNo", required = false) String no,
+			@RequestParam(value = "childNo", required = false) String childNo, Model model, HttpSession session) {
 		String memId = (String) session.getAttribute("sid");
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		ArrayList<ChildVO> chvoList = childService.getMyChildren(memId);
-		DateTimeFormatter calFm = DateTimeFormatter.ofPattern("yyyy-MM-dd");			
-		
+		DateTimeFormatter calFm = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 		if (chvoList != null && no == null) {
 			for (ChildVO vo : chvoList) {
 				if (!vo.getGymName().equals("미등록")) {
@@ -64,37 +65,44 @@ public class GymController {
 				}
 			}
 
-			if (!map.isEmpty()) model.addAttribute("map", map);
-				
+			if (!map.isEmpty())
+				model.addAttribute("map", map);
 
 			model.addAttribute("chvoList", chvoList);
-		}else {						
+		} else {
 			int eventNo = Integer.parseInt(no);
 			ArrayList<Integer> eventNoList = memService.getChildNoJoinEvent(eventNo);
-			
+			ArrayList<String> noList = new ArrayList<String>();
+
+			for (Integer val : eventNoList) {
+				noList.add(val + "");
+			}
+
 			EventVO event = gallService.getEventPayInfo(eventNo);
-			ArrayList<ChildVO> childList = new ArrayList<ChildVO>();			
-			
-			for(ChildVO child:chvoList) {
-				String deadLine = child.getDeadLine().substring(0, 4) + "-" + child.getDeadLine().substring(6, 8) + "-"
-						+ child.getDeadLine().substring(10, 12);
-				LocalDate line = LocalDate.parse(deadLine, calFm);
-				LocalDate today = LocalDate.now();
-				
-				if(child.getGymName().equals(event.getGymName())) {					
-					
-					if(line.isAfter(today) && !eventNoList.contains(child.getChildNo())) {
-						childList.add(child);
+			ArrayList<ChildVO> childList = new ArrayList<ChildVO>();
+
+			for (ChildVO child : chvoList) {
+				if (!child.getGymName().equals("미등록")) {
+					String deadLine = child.getDeadLine().substring(0, 4) + "-" + child.getDeadLine().substring(6, 8)
+							+ "-" + child.getDeadLine().substring(10, 12);
+					LocalDate line = LocalDate.parse(deadLine, calFm);
+					LocalDate today = LocalDate.now();
+
+					if (child.getGymName().equals(event.getGymName())) {
+
+						if (line.isAfter(today) && !noList.contains(child.getChildNo())) {
+							childList.add(child);
+						}
 					}
 				}
 			}
-			
+
 			model.addAttribute("chvoList", childList);
-			model.addAttribute("event",event);
+			model.addAttribute("event", event);
 		}
-		
+
 		model.addAttribute("ctg", ctg);
-		
+
 		return "gym/joinAndPayGym";
 	}
 
@@ -102,7 +110,7 @@ public class GymController {
 	@ResponseBody
 	@GetMapping("/gym/getGymPriceByGymName/{name}")
 	public int getmyChildInfo(@PathVariable String name) {
-		
+
 		MemberVO vo = gymService.getGymPriceByGymName(name);
 		int price = vo.getGymPrice();
 
@@ -120,7 +128,6 @@ public class GymController {
 	 * return chvoList; }
 	 */
 
-	
 	@ResponseBody
 	@RequestMapping("/gym/getGymDataByName")
 	public MemberVO getGymDataByName(@RequestParam("gymName") String gymName) {
@@ -135,12 +142,10 @@ public class GymController {
 
 		String memId = (String) session.getAttribute("sid");
 		MemberVO vo = memService.getMemData(memId);
-		
+
 		boolean chk = false;
 
-		 
 		model.addAttribute("vo", vo);
-		
 
 		model.addAttribute("chk", chk);
 
