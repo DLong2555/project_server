@@ -83,7 +83,7 @@ public class GymController {
 				
 				if(child.getGymName().equals(event.getGymName())) {					
 					
-					if(line.isAfter(today) || !eventNoList.contains(child.getChildNo())) {
+					if(line.isAfter(today) && !eventNoList.contains(child.getChildNo())) {
 						childList.add(child);
 					}
 				}
