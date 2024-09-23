@@ -182,7 +182,7 @@ $(document).ready(function () {
 				$("#mapViewGymName").text(nowUser);
 				$("#mapManagerText").text(result["memName"]);
 				$("#mapNumberText").text(result["memHp"]);
-				$("#mapGymNumberText").text(result["gymHp"]);
+				//$("#mapGymNumberText").text(result["gymHp"]);
 				$("#mapGymAddressText").text(result["memAddress1"]);
 				$("#mapViewGymLink").text("정보 수정");
 

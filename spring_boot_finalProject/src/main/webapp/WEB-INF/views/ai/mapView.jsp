@@ -59,7 +59,7 @@
 						<div id="mapViewGymName"></div>
 						<div class="mapViewGymContents"><img id="mapManager" src="<c:url value='/image/mapManager.png'/>" class="mapImage"><span id="mapManagerText"></span></div>
 						<div class="mapViewGymContents"><img id="mapNumber" src="<c:url value='/image/mapNumber.png'/>" class="mapImage"><span id="mapNumberText"></span></div>
-						<div class="mapViewGymContents"><img id="mapGymNumber" src="<c:url value='/image/mapGymNumber.jpg'/>" class="mapImage"><span id="mapGymNumberText"></span></div>
+						<%-- <div class="mapViewGymContents"><img id="mapGymNumber" src="<c:url value='/image/mapGymNumber.jpg'/>" class="mapImage"><span id="mapGymNumberText"></span></div> --%>
 						<div class="mapViewGymContents"><img id="mapGymAddress" src="<c:url value='/image/mapGymAddress.png'/>" class="mapImage"><span id="mapGymAddressText"></span></div>
 						<div id="mapViewLink"><a href="<c:url value='/member/loginForm' />"><span id="mapViewGymLink"></span></a></div>
 					</div>

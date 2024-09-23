@@ -28,7 +28,7 @@
 						<div id="productDetailNameBox">
 							<div id="productDetailName">${pvo.prdName}</div>
 							<div id="productDetailCommentLinkDown">
-								<img src="<c:url value='/image/Comment.png' />" id="productDetailCommentImage">
+								<img src="<c:url value='/image/comment.png' />" id="productDetailCommentImage">
 								후기 및 문의
 							</div>
 						</div>
@@ -118,7 +118,7 @@
 							</c:choose>
 						</c:forEach>
 						<div id="productDetailCommentLinkUp">
-							<img src="<c:url value='/image/Comment.png' />" id="productDetailCommentImage">
+							<img src="<c:url value='/image/comment.png' />" id="productDetailCommentImage">
 							상품 상세
 						</div>
 					</div>
